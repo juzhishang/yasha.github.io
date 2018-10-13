@@ -194,6 +194,27 @@ Zepto源码分析-event模块
   
     <article class="article-card">
       <h2 class="article-head">
+        <a href="/2016/07/14/07-14-自定义事件/">自定义事件</a>
+      </h2>
+      <p class="article-date">July 14, 2016</p>
+      
+        
+  <a href="/tages#事件" >
+    <span class="tag-code">事件</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          刚啃完zepto的event事件机制，正好重温下自定义事件对象。
+在手动触发事件时，我们可以简单的调用相应的方法。比如触发点击：$(&#39;.J_button&#39;).click()它如此便捷，仅仅只是zepto为我们写了一些快捷方法而已，当未传参数时，内部调用了zepto的trigg ...
+        
+      </div>
+      <a class="more" href="/2016/07/14/07-14-自定义事件/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
         <a href="/2016/07/14/07-14-jquery中bind-live-delegate的区别/">jquery中bind-live-delegate的区别</a>
       </h2>
       <p class="article-date">July 14, 2016</p>
@@ -236,23 +257,23 @@ Zepto源码分析-event模块
   
     <article class="article-card">
       <h2 class="article-head">
-        <a href="/2016/07/14/07-14-自定义事件/">自定义事件</a>
+        <a href="/2016/07/10/07-10-禁止用户选择页面内容/">禁止用户选择页面内容</a>
       </h2>
-      <p class="article-date">July 14, 2016</p>
+      <p class="article-date">July 10, 2016</p>
       
         
-  <a href="/tages#事件" >
-    <span class="tag-code">事件</span>
+  <a href="/tages#移动端" >
+    <span class="tag-code">移动端</span>
   </a>
 
       
       <div class="article-summary">
         
-          刚啃完zepto的event事件机制，正好重温下自定义事件对象。
-在手动触发事件时，我们可以简单的调用相应的方法。比如触发点击：$(&#39;.J_button&#39;).click()它如此便捷，仅仅只是zepto为我们写了一些快捷方法而已，当未传参数时，内部调用了zepto的trigg ...
+          可以通过-webkit-user-select来禁止用户选中页面中的内容html {-webkit-user-select: none;}
+
         
       </div>
-      <a class="more" href="/2016/07/14/07-14-自定义事件/">Read more</a>
+      <a class="more" href="/2016/07/10/07-10-禁止用户选择页面内容/">Read more</a>
     </article>
   
     <article class="article-card">
@@ -278,27 +299,6 @@ Zepto源码分析-event模块
   
     <article class="article-card">
       <h2 class="article-head">
-        <a href="/2016/07/10/07-10-禁止用户选择页面内容/">禁止用户选择页面内容</a>
-      </h2>
-      <p class="article-date">July 10, 2016</p>
-      
-        
-  <a href="/tages#移动端" >
-    <span class="tag-code">移动端</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          可以通过-webkit-user-select来禁止用户选中页面中的内容html {-webkit-user-select: none;}
-
-        
-      </div>
-      <a class="more" href="/2016/07/10/07-10-禁止用户选择页面内容/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
         <a href="/2016/07/10/07-10-去掉可点击元素的半透明背景/">去掉可点击元素的半透明背景</a>
       </h2>
       <p class="article-date">July 10, 2016</p>
@@ -320,7 +320,7 @@ Zepto源码分析-event模块
   
     <article class="article-card">
       <h2 class="article-head">
-        <a href="/2016/07/06/07-06-比较zepto与jquery的区别/">比较zepto与jquery的区别</a>
+        <a href="/2016/07/06/07-06-读zepto源码（1）zepto/">读zepto源码（1）zepto</a>
       </h2>
       <p class="article-date">July 6, 2016</p>
       
@@ -329,24 +329,16 @@ Zepto源码分析-event模块
     <span class="tag-code">zepto</span>
   </a>
 
-  <a href="/tages#jquery" >
-    <span class="tag-code">jquery</span>
-  </a>
-
       
       <div class="article-summary">
         
-          
-1、zepto的$.each与$().each()
+          四月份的时候，部门开展了一次读源码活动。后来由于需求越来越多且架构调整，原来的小伙伴都被拆分到不同的项目组去了。zepto源码当时大家计划是读完核心代码、event、ajax…结果就是连核心代码的四分之一都没有读完…
+好吧，不吐槽了，因为我自己也是断断续续的，一直到上周才读完核心的部分。
 
-这两个方法不是同一个东西，$.each我们可以使用return false中断遍历，而$().each由于内部调用的是数组的every方法，即便return false还是会全部执行完。
-
-2、zepto data 没有缓存
-
-以前使用 ...
+ ...
         
       </div>
-      <a class="more" href="/2016/07/06/07-06-比较zepto与jquery的区别/">Read more</a>
+      <a class="more" href="/2016/07/06/07-06-读zepto源码（1）zepto/">Read more</a>
     </article>
   
 

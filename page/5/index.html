@@ -126,7 +126,7 @@
   
     <article class="article-card">
       <h2 class="article-head">
-        <a href="/2016/07/06/07-06-读zepto源码（1）zepto/">读zepto源码（1）zepto</a>
+        <a href="/2016/07/06/07-06-比较zepto与jquery的区别/">比较zepto与jquery的区别</a>
       </h2>
       <p class="article-date">July 6, 2016</p>
       
@@ -135,55 +135,24 @@
     <span class="tag-code">zepto</span>
   </a>
 
-      
-      <div class="article-summary">
-        
-          四月份的时候，部门开展了一次读源码活动。后来由于需求越来越多且架构调整，原来的小伙伴都被拆分到不同的项目组去了。zepto源码当时大家计划是读完核心代码、event、ajax…结果就是连核心代码的四分之一都没有读完…
-好吧，不吐槽了，因为我自己也是断断续续的，一直到上周才读完核心的部分。
-
- ...
-        
-      </div>
-      <a class="more" href="/2016/07/06/07-06-读zepto源码（1）zepto/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/2016/06/24/06-24-鼠标滚动距离兼容/">鼠标滚动距离兼容</a>
-      </h2>
-      <p class="article-date">June 24, 2016</p>
-      
-        
-  <a href="/tages#dom" >
-    <span class="tag-code">dom</span>
+  <a href="/tages#jquery" >
+    <span class="tag-code">jquery</span>
   </a>
 
       
       <div class="article-summary">
         
-          这是在做视差滚动改版需求的时候整理的,这里用useragent做浏览器检测。firefox滚轮的事件是DOMMouseScroll,而其它浏览器用的是mousewheel。
-1234567891011121314151617181920212223var mouseEvent = &apos ...
-        
-      </div>
-      <a class="more" href="/2016/06/24/06-24-鼠标滚动距离兼容/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/2016/06/24/06-24-如何检测真对象/">如何检测真对象</a>
-      </h2>
-      <p class="article-date">June 24, 2016</p>
-      
-      <div class="article-summary">
-        
           
-BeiBei
+1、zepto的$.each与$().each()
 
-比较容易遗漏的点：1、类数组（arguments,nodeList,HTMLCollection） 2、日期和正则其实这里还遗漏了元素的属性集合NamedNodeMap,它也是类数组。  
-123456789101112131415161718   &#123;   isP ...
+这两个方法不是同一个东西，$.each我们可以使用return false中断遍历，而$().each由于内部调用的是数组的every方法，即便return false还是会全部执行完。
+
+2、zepto data 没有缓存
+
+以前使用 ...
         
       </div>
-      <a class="more" href="/2016/06/24/06-24-如何检测真对象/">Read more</a>
+      <a class="more" href="/2016/07/06/07-06-比较zepto与jquery的区别/">Read more</a>
     </article>
   
     <article class="article-card">
@@ -213,6 +182,27 @@ BeiBei
   
     <article class="article-card">
       <h2 class="article-head">
+        <a href="/2016/06/24/06-24-鼠标滚动距离兼容/">鼠标滚动距离兼容</a>
+      </h2>
+      <p class="article-date">June 24, 2016</p>
+      
+        
+  <a href="/tages#dom" >
+    <span class="tag-code">dom</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          这是在做视差滚动改版需求的时候整理的,这里用useragent做浏览器检测。firefox滚轮的事件是DOMMouseScroll,而其它浏览器用的是mousewheel。
+1234567891011121314151617181920212223var mouseEvent = &apos ...
+        
+      </div>
+      <a class="more" href="/2016/06/24/06-24-鼠标滚动距离兼容/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
         <a href="/2016/06/24/06-24-todolist/">todolist</a>
       </h2>
       <p class="article-date">June 24, 2016</p>
@@ -234,6 +224,24 @@ HTTP协议中POST、GET、HEAD、PUT等请求方法以及一些常见错误
   
     <article class="article-card">
       <h2 class="article-head">
+        <a href="/2016/06/24/06-24-如何检测真对象/">如何检测真对象</a>
+      </h2>
+      <p class="article-date">June 24, 2016</p>
+      
+      <div class="article-summary">
+        
+          
+BeiBei
+
+比较容易遗漏的点：1、类数组（arguments,nodeList,HTMLCollection） 2、日期和正则其实这里还遗漏了元素的属性集合NamedNodeMap,它也是类数组。  
+123456789101112131415161718   &#123;   isP ...
+        
+      </div>
+      <a class="more" href="/2016/06/24/06-24-如何检测真对象/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
         <a href="/2016/06/23/06-23-如何获取服务器时间/">如何获取服务器时间</a>
       </h2>
       <p class="article-date">June 23, 2016</p>
@@ -251,6 +259,54 @@ HTTP协议中POST、GET、HEAD、PUT等请求方法以及一些常见错误
         
       </div>
       <a class="more" href="/2016/06/23/06-23-如何获取服务器时间/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2016/06/19/06-19-如何唤起app/">如何唤起app</a>
+      </h2>
+      <p class="article-date">June 19, 2016</p>
+      
+        
+  <a href="/tages#移动端" >
+    <span class="tag-code">移动端</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          app外唤起的话，我们需要注意以下几点：
+1、现在唤起一般是用iframe,而在ios的高版本中(大于8.9.9)，iframe已经不支持，可以用location.href。
+2、如何检测是否安装app：使用定时器。
+3、微信和QQ浏览器不支持唤起，像微信必须是与它合作的app才能唤起。
+如 ...
+        
+      </div>
+      <a class="more" href="/2016/06/19/06-19-如何唤起app/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2016/06/19/06-19-css揭秘读书笔记/">css揭秘读书笔记</a>
+      </h2>
+      <p class="article-date">June 19, 2016</p>
+      
+        
+  <a href="/tages#css" >
+    <span class="tag-code">css</span>
+  </a>
+
+  <a href="/tages#读书笔记" >
+    <span class="tag-code">读书笔记</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          昨天看完第一章引言，它讲到了标准的制定过程：(1)编辑草案(ED),(2)首个公开工作草案(FPWD),(3)工作草案(WD),(4)候选推荐规范(CR),(5)提名推荐规范(PR),(6)正式推荐规范(REC),浏览器的支持一般是从工作草案开始的，而到了候选推荐规范这一阶段，就相对稳定了。 ...
+        
+      </div>
+      <a class="more" href="/2016/06/19/06-19-css揭秘读书笔记/">Read more</a>
     </article>
   
     <article class="article-card">
@@ -296,54 +352,6 @@ HTTP协议中POST、GET、HEAD、PUT等请求方法以及一些常见错误
         
       </div>
       <a class="more" href="/2016/06/19/06-19-performance性能打点/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/2016/06/19/06-19-css揭秘读书笔记/">css揭秘读书笔记</a>
-      </h2>
-      <p class="article-date">June 19, 2016</p>
-      
-        
-  <a href="/tages#css" >
-    <span class="tag-code">css</span>
-  </a>
-
-  <a href="/tages#读书笔记" >
-    <span class="tag-code">读书笔记</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          昨天看完第一章引言，它讲到了标准的制定过程：(1)编辑草案(ED),(2)首个公开工作草案(FPWD),(3)工作草案(WD),(4)候选推荐规范(CR),(5)提名推荐规范(PR),(6)正式推荐规范(REC),浏览器的支持一般是从工作草案开始的，而到了候选推荐规范这一阶段，就相对稳定了。 ...
-        
-      </div>
-      <a class="more" href="/2016/06/19/06-19-css揭秘读书笔记/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/2016/06/19/06-19-如何唤起app/">如何唤起app</a>
-      </h2>
-      <p class="article-date">June 19, 2016</p>
-      
-        
-  <a href="/tages#移动端" >
-    <span class="tag-code">移动端</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          app外唤起的话，我们需要注意以下几点：
-1、现在唤起一般是用iframe,而在ios的高版本中(大于8.9.9)，iframe已经不支持，可以用location.href。
-2、如何检测是否安装app：使用定时器。
-3、微信和QQ浏览器不支持唤起，像微信必须是与它合作的app才能唤起。
-如 ...
-        
-      </div>
-      <a class="more" href="/2016/06/19/06-19-如何唤起app/">Read more</a>
     </article>
   
 
