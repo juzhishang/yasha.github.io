@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="小前端，on my way~">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  <title>
+    
+      转－js操作iframe | 鸦杀&#39;s Blog
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  <script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <!--<div class="logo"></div>-->
+      <span>鸦杀's Blog</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>转－js操作iframe</h2>
+  <p class="post-date">2016-07-22</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><p>这篇文章是在整理document.domain跨域时发现的，它对父窗口域子窗口的相对访问整理的比较详细，也提到了一些兼容性上的问题：</p>
+<p>来源：<a href="http://www.cnblogs.com/rainman/archive/2011/02/16/1956431.html" target="_blank" rel="noopener">http://www.cnblogs.com/rainman/archive/2011/02/16/1956431.html</a></p>
+<h3 id="1-获得iframe的window对象"><a href="#1-获得iframe的window对象" class="headerlink" title="1-获得iframe的window对象"></a>1-获得iframe的window对象</h3><p>存在跨域访问限制。</p>
+<p>chrome：iframeElement. contentWindow<br>firefox： iframeElement.contentWindow<br>ie6：iframeElement.contentWindow</p>
+<p>文章Iframes, onload, and document.domain中说“he iframe element object has a property called contentDocument that contains the iframe’s document object, so you can use the parentWindow property to retrieve the window object.”意思就是一些浏览器可以通过iframeElement.contentDocument.parentWindow获得iframe的window对象。但经过测试firefox、chrome的element.contentDocument对象没有parentWindow属性。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  </span><br><span class="line">function getIframeWindow(element)&#123;   </span><br><span class="line"> return  element.contentWindow;  </span><br><span class="line"> //return  element.contentWindow || element.contentDocument.parentWindow;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-获得iframe的document对象"><a href="#2-获得iframe的document对象" class="headerlink" title="2-获得iframe的document对象"></a>2-获得iframe的document对象</h3><p>存在跨域访问限制。</p>
+<p>chrome：iframeElement.contentDocument<br>firefox：iframeElement.contentDocument<br>ie：element.contentWindow.document<br>备注：ie没有iframeElement.contentDocument属性。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var getIframeDocument = function(element) &#123;  </span><br><span class="line"> return  element.contentDocument || element.contentWindow.document;  </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="3-iframe中获得父页面的window对象"><a href="#3-iframe中获得父页面的window对象" class="headerlink" title="3-iframe中获得父页面的window对象"></a>3-iframe中获得父页面的window对象</h3><p>存在跨域访问限制。</p>
+<p>父页面：window.parent<br>顶层页面：window.top<br>适用于所有浏览器</p>
+<h3 id="4-获得iframe在父页面中的html标签"><a href="#4-获得iframe在父页面中的html标签" class="headerlink" title="4-获得iframe在父页面中的html标签"></a>4-获得iframe在父页面中的html标签</h3><p>存在跨域访问限制。</p>
+<p>window.frameElement（类型：HTMLElement），适用于所有浏览器</p>
+<h3 id="5-iframe的onload事件"><a href="#5-iframe的onload事件" class="headerlink" title="5-iframe的onload事件"></a>5-iframe的onload事件</h3><p>非ie浏览器都提供了onload事件。但下面代码在ie中是不会有弹出框的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var ifr = document.createElement(&apos;iframe&apos;);  </span><br><span class="line">ifr.src = &apos;http://www.b.com/index.php&apos;;  </span><br><span class="line">ifr.onload = function() &#123;  </span><br><span class="line"> alert(&apos;loaded&apos;);  </span><br><span class="line">&#125;;  </span><br><span class="line">document.body.appendChild(ifr);</span><br></pre></td></tr></table></figure>
+<p>但是ie却又似乎提供了onload事件，下面两种方法都会触发onload</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">  </span><br><span class="line">//方法一：  </span><br><span class="line">&quot;alert(&apos;loaded&apos;);&quot;  src=&quot;http://www.b.com/index.php&quot;&gt;iframe&gt;  </span><br><span class="line">  </span><br><span class="line">//方法二：  </span><br><span class="line">//只有ie才支持为createElement传递这样的参数  </span><br><span class="line">var ifr = document.createElement(&apos;&apos;);&quot; src=&quot;http://www.b.com/index.php&quot;&gt;&apos;);  </span><br><span class="line">document.body.appendChild(ifr);</span><br></pre></td></tr></table></figure>
+<p>由于iframe元素包含于父级页面中，因此以上方法均不存在跨域问题。</p>
+<p>实际上IE提供了onload事件，但必须使用attachEvent进行绑定。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var ifr = document.createElement(&apos;iframe&apos;);  </span><br><span class="line">ifr.src = &apos;http://b.a.com/b.php&apos;;  </span><br><span class="line">if (ifr.attachEvent) &#123;  </span><br><span class="line"> ifr.attachEvent(&apos;onload&apos;,  function()&#123; alert(&apos;loaded&apos;); &#125;);  </span><br><span class="line">&#125; else &#123;  </span><br><span class="line"> ifr.onload  = function() &#123; alert(&apos;loaded&apos;); &#125;;  </span><br><span class="line">&#125;  </span><br><span class="line">document.body.appendChild(ifr);</span><br></pre></td></tr></table></figure>
+<h3 id="6-frames"><a href="#6-frames" class="headerlink" title="6-frames"></a>6-frames</h3><p>window.frames可以取到页面中的帧(iframe、frame等)，需要注意的是取到的是window对象，而不是HTMLElement。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var ifr1 = document.getElementById(&apos;ifr1&apos;);  </span><br><span class="line">var ifr1win = window.frames[0];  </span><br><span class="line">ifr1win.frameElement === ifr1;   // true  </span><br><span class="line">ifr1win === ifr1;    // false</span><br></pre></td></tr></table></figure>
+<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a href="Iframes, onload, and document.domain">Iframes, onload, and document.domain</a><br><a href="http://www.cnblogs.com/demix/archive/2009/09/16/1567906.html" target="_blank" rel="noopener">【翻译】Iframe, onload 与 document.domain</a></p>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tages#iframe" >
+    <span class="tag-code">iframe</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2016/07/22/07-22-跨域整理/">
+        <span class="nav-arrow">← </span>
+        
+          跨域整理
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2016/07/25/07-25-Expires和Cache-Control/">
+        
+          Expires和Cache-Control
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'https://juzhishang.github.io/2016/07/22/07-22-转-js操作iframe/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "juzhishang";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "转－js操作iframe",
+        owner: "juzhishang",
+        repo: "juzhishang.github.io",
+        oauth: {
+          client_id: "19a4bb92d652487fe51f",
+          client_secret: "1758eabb0def22e0a6b8edab473245799754c012"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2018 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="/js/script.js"></script>
+  </body>
+</html>

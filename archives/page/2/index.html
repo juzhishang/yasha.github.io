@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="小前端，on my way~">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  <title>
+    
+      鸦杀&#39;s Blog
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  <script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <!--<div class="logo"></div>-->
+      <span>鸦杀's Blog</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>Archives</h2>
+  <p class="post-date">文章归档</p>
+</div>
+<main class="app-body" id="archives">
+  
+  
+  
+    <section class="time-section">
+  <h1 class="section-year">
+    2018
+  </h1>
+  <div class="section-list">
+    
+    
+      <div class="section-list-item">
+        <a href="/2018/10/13/vue-loader源码分析/" class="archive-title">vue-loader源码分析</a>
+        <p class="archive-date">10-13</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2018/09/14/vuex源码阅读5—store/" class="archive-title">vuex源码阅读5—store</a>
+        <p class="archive-date">09-14</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2018/09/13/vuex源码阅读4—helpers与util/" class="archive-title">vuex源码阅读4—helpers与util</a>
+        <p class="archive-date">09-13</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2018/09/11/vuex源码阅读3—module/" class="archive-title">vuex源码阅读3—module</a>
+        <p class="archive-date">09-11</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2018/09/10/vuex源码阅读2—plugins/" class="archive-title">vuex源码阅读2—plugins</a>
+        <p class="archive-date">09-10</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2018/09/10/vuex源码阅读1—mixin/" class="archive-title">vuex源码阅读1—mixin</a>
+        <p class="archive-date">09-10</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2018/09/06/x-vuex-storage,动态注册模块/" class="archive-title">x-vuex-storage，动态注册模块</a>
+        <p class="archive-date">09-06</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2018/09/06/scoped的实现原理及穿透方案/" class="archive-title">scoped的实现原理及穿透方案</a>
+        <p class="archive-date">09-06</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2018/09/06/css模块化/" class="archive-title">css模块化</a>
+        <p class="archive-date">09-06</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2018/09/04/理解vuex/" class="archive-title">理解vuex</a>
+        <p class="archive-date">09-04</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2018/08/31/剩余参数/" class="archive-title">剩余参数</a>
+        <p class="archive-date">08-31</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2018/08/31/箭头函数/" class="archive-title">箭头函数</a>
+        <p class="archive-date">08-31</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2018/08/31/函数的name属性/" class="archive-title">函数的name属性</a>
+        <p class="archive-date">08-31</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2018/08/29/函数默认参数/" class="archive-title">函数默认参数</a>
+        <p class="archive-date">08-29</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2018/08/29/块级作用域/" class="archive-title">块级作用域</a>
+        <p class="archive-date">08-29</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2018/08/23/关于css权重/" class="archive-title">关于css权重</a>
+        <p class="archive-date">08-23</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2018/08/20/一道面试题——数组去重且不保留重复元素/" class="archive-title">一道面试题——数组去重且不保留重复元素</a>
+        <p class="archive-date">08-20</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2018/05/13/browser-types/" class="archive-title">移动端浏览器类型</a>
+        <p class="archive-date">05-13</p>
+      </div>
+    
+  </div>
+</section>
+  
+    <section class="time-section">
+  <h1 class="section-year">
+    2017
+  </h1>
+  <div class="section-list">
+    
+    
+      <div class="section-list-item">
+        <a href="/2017/06/18/隐藏元素的n种方法，你get了么/" class="archive-title">隐藏元素的n种方法，你get了么</a>
+        <p class="archive-date">06-18</p>
+      </div>
+    
+  </div>
+</section>
+  
+    <section class="time-section">
+  <h1 class="section-year">
+    2016
+  </h1>
+  <div class="section-list">
+    
+    
+      <div class="section-list-item">
+        <a href="/2016/08/22/08-22-读normalize源码/" class="archive-title">读normalize源码</a>
+        <p class="archive-date">08-22</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/08/22/08-22-读zepto源码（5）ie/" class="archive-title">读zepto源码（5）ie</a>
+        <p class="archive-date">08-22</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/08/21/08-21-background-positon-x与background-position-y坑点小计/" class="archive-title">background-positon-x与background-position-y坑点小计</a>
+        <p class="archive-date">08-21</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/08/19/08-19-探究clear-both/" class="archive-title">探究clear:both</a>
+        <p class="archive-date">08-19</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/07/25/07-25-什么是Etag/" class="archive-title">什么是Etag</a>
+        <p class="archive-date">07-25</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/07/25/07-25-Expires和Cache-Control/" class="archive-title">Expires和Cache-Control</a>
+        <p class="archive-date">07-25</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/07/22/07-22-转-js操作iframe/" class="archive-title">转－js操作iframe</a>
+        <p class="archive-date">07-22</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/07/22/07-22-跨域整理/" class="archive-title">跨域整理</a>
+        <p class="archive-date">07-22</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/07/21/07-21-面试拾疑/" class="archive-title">面试拾疑</a>
+        <p class="archive-date">07-21</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/07/20/07-20-读zepto源码（4）form/" class="archive-title">读zepto源码 (4) form</a>
+        <p class="archive-date">07-20</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/07/19/07-19-读zepto源码（3）ajax/" class="archive-title">读zepto源码（3) ajax</a>
+        <p class="archive-date">07-19</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/07/15/07-15-鼠标移动事件/" class="archive-title">鼠标移动事件</a>
+        <p class="archive-date">07-15</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/07/14/07-14-读zepto源码（2）event/" class="archive-title">读zepto源码（2）event</a>
+        <p class="archive-date">07-14</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/07/14/07-14-自定义事件/" class="archive-title">自定义事件</a>
+        <p class="archive-date">07-14</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/07/14/07-14-jquery中bind-live-delegate的区别/" class="archive-title">jquery中bind-live-delegate的区别</a>
+        <p class="archive-date">07-14</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/07/14/07-14-focus与focusin的区别/" class="archive-title">focus与focusin的区别</a>
+        <p class="archive-date">07-14</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/07/14/07-14-event-relatedTarget/" class="archive-title">event-relatedTarget</a>
+        <p class="archive-date">07-14</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/07/10/07-10-禁用ios中触摸显示的系统默认菜单/" class="archive-title">禁止ios中触摸显示的系统默认菜单</a>
+        <p class="archive-date">07-10</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/07/10/07-10-禁止用户选择页面内容/" class="archive-title">禁止用户选择页面内容</a>
+        <p class="archive-date">07-10</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/07/10/07-10-去掉可点击元素的半透明背景/" class="archive-title">去掉可点击元素的半透明背景</a>
+        <p class="archive-date">07-10</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/07/06/07-06-读zepto源码（1）zepto/" class="archive-title">读zepto源码（1）zepto</a>
+        <p class="archive-date">07-06</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/07/06/07-06-比较zepto与jquery的区别/" class="archive-title">比较zepto与jquery的区别</a>
+        <p class="archive-date">07-06</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/06/24/06-24-鼠标滚动距离兼容/" class="archive-title">鼠标滚动距离兼容</a>
+        <p class="archive-date">06-24</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/06/24/06-24-如何检测真对象/" class="archive-title">如何检测真对象</a>
+        <p class="archive-date">06-24</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/06/24/06-24-IE678如何区分/" class="archive-title">ie678如何区分</a>
+        <p class="archive-date">06-24</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/06/24/06-24-todolist/" class="archive-title">todolist</a>
+        <p class="archive-date">06-24</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/06/23/06-23-如何获取服务器时间/" class="archive-title">如何获取服务器时间</a>
+        <p class="archive-date">06-23</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/06/19/06-19-如何唤起app/" class="archive-title">如何唤起app</a>
+        <p class="archive-date">06-19</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/06/19/06-19-performance性能打点/" class="archive-title">performance性能打点</a>
+        <p class="archive-date">06-19</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/06/19/06-19-css揭秘读书笔记/" class="archive-title">css揭秘读书笔记</a>
+        <p class="archive-date">06-19</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/06/19/06-19-background简写属性/" class="archive-title">background简写属性</a>
+        <p class="archive-date">06-19</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/06/18/06-18-常用链接/" class="archive-title">常用链接</a>
+        <p class="archive-date">06-18</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/06/17/06-17-红米note手机border-bottom设置为1px时不显示问题/" class="archive-title">红米note手机border-bottom设置为1px时不显示问题</a>
+        <p class="archive-date">06-17</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/06/17/06-17-image打点注意事项/" class="archive-title">image打点主意事项</a>
+        <p class="archive-date">06-17</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/06/14/06-14-魅族overflow-hidden清除浮动bug-父元素宽度是100但成右浮动元素不显示/" class="archive-title">魅族overflow-hidden清除浮动bug-父元素宽度是100但成右浮动元素不显示</a>
+        <p class="archive-date">06-14</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/06/14/06-14-overflow-scrolling-touch/" class="archive-title">overflow-scrolling-touch</a>
+        <p class="archive-date">06-14</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/06/04/06-04-红米魅族12px问题/" class="archive-title">红米魅族12px问题</a>
+        <p class="archive-date">06-04</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/05/29/05-29-vertial-align释义/" class="archive-title">vertial-align释义</a>
+        <p class="archive-date">05-29</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/05/29/05-29-strut（支杆）/" class="archive-title">strut（支杆）</a>
+        <p class="archive-date">05-29</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/05/29/05-29-line-height释义/" class="archive-title">line-height释义</a>
+        <p class="archive-date">05-29</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/05/28/05-28-overflow-hidden与对齐/" class="archive-title">overflow-hidden与对齐</a>
+        <p class="archive-date">05-28</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/05/28/05-28-ios事件委托坑点/" class="archive-title">ios事件委托坑点</a>
+        <p class="archive-date">05-28</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2016/05/17/05-17-jquery拖拽插件dragsortAPI/" class="archive-title">jquery拖拽插件dragsortAPI</a>
+        <p class="archive-date">05-17</p>
+      </div>
+    
+  </div>
+</section>
+  
+    <section class="time-section">
+  <h1 class="section-year">
+    2015
+  </h1>
+  <div class="section-list">
+    
+    
+      <div class="section-list-item">
+        <a href="/2015/12/15/h5-meta/" class="archive-title">h5 meta</a>
+        <p class="archive-date">12-15</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2015/12/09/脏值检测（修改）/" class="archive-title">脏值检测（修改）</a>
+        <p class="archive-date">12-09</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2015/12/09/Yahoo-团队实践分享：网站性能优化的34条黄金守则/" class="archive-title">Yahoo!团队实践分享：网站性能优化的34条黄金守则</a>
+        <p class="archive-date">12-09</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2015/12/09/【转】grunt动态生成文件名/" class="archive-title">【转】grunt动态生成文件名</a>
+        <p class="archive-date">12-09</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2015/12/09/JavaScript-给表格排序/" class="archive-title">JavaScript 给表格排序</a>
+        <p class="archive-date">12-09</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2015/12/09/使用gulp构建工具/" class="archive-title">使用gulp构建工具</a>
+        <p class="archive-date">12-09</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2015/12/09/eslint规则-中文备注/" class="archive-title">eslint规则-中文备注</a>
+        <p class="archive-date">12-09</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2015/12/09/何创建width与height比例固定的元素/" class="archive-title">如何创建width与height比例固定的元素</a>
+        <p class="archive-date">12-09</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2015/12/09/四则运算-calc/" class="archive-title">四则运算 calc()</a>
+        <p class="archive-date">12-09</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2015/12/09/关于Function-prototype-apply-call的一些补充/" class="archive-title">关于Function.prototype.apply.call的一些补充</a>
+        <p class="archive-date">12-09</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2015/12/09/remote-error-You-can-t-push-to-git-解决办法/" class="archive-title">remote error: You can&#39;t push to git 解决办法</a>
+        <p class="archive-date">12-09</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2015/12/09/sublime快捷键/" class="archive-title">sublime快捷键</a>
+        <p class="archive-date">12-09</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2015/12/09/Nodejs-连接-mysql时报错-Error-Cannot-enqueue-Query-after-fatal-error/" class="archive-title">Nodejs 连接 mysql时报错 Error: Cannot enqueue Query after fatal error</a>
+        <p class="archive-date">12-09</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2015/11/24/web全栈工程师的自我修养/" class="archive-title">web全栈工程师的自我修养</a>
+        <p class="archive-date">11-24</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2015/11/23/译-Understanding-ECMAScript6-函数/" class="archive-title">[译]Understanding ECMAScript6 函数</a>
+        <p class="archive-date">11-23</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2015/11/23/译-Understanding-ECMAScript6-基本知识/" class="archive-title">[译]Understanding ECMAScript6 基本知识</a>
+        <p class="archive-date">11-23</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2015/11/23/译-Understanding-ECMAScript-6-内容目录/" class="archive-title">[译]Understanding ECMAScript 6 内容目录</a>
+        <p class="archive-date">11-23</p>
+      </div>
+    
+      <div class="section-list-item">
+        <a href="/2015/11/23/译-Understanding-ECMAScript-6-说明/" class="archive-title">[译]Understanding ECMAScript 6 说明</a>
+        <p class="archive-date">11-23</p>
+      </div>
+    
+  </div>
+</section>
+  
+</main>
+
+<script>
+  (function () {
+    var url = 'https://juzhishang.github.io/archives/page/2/index.html';
+    $('#article-banner').geopattern(url);
+    $('.header').removeClass('fixed-header');
+  })();
+</script>
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2018 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="/js/script.js"></script>
+  </body>
+</html>

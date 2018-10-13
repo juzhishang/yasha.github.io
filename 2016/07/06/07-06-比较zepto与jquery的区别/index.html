@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="小前端，on my way~">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  <title>
+    
+      比较zepto与jquery的区别 | 鸦杀&#39;s Blog
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  <script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <!--<div class="logo"></div>-->
+      <span>鸦杀's Blog</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>比较zepto与jquery的区别</h2>
+  <p class="post-date">2016-07-06</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><ul>
+<li>1、zepto的$.each与$().each()</li>
+</ul>
+<p>这两个方法不是同一个东西，$.each我们可以使用return false中断遍历，而$().each由于内部调用的是数组的every方法，即便return false还是会全部执行完。</p>
+<ul>
+<li>2、zepto data 没有缓存</li>
+</ul>
+<p>以前使用jQuery的时候，会尽量的去使用data方法，避免attr，因为jquey内部做了缓存。而zepto中的data方法竟然是内部调用了attr方法，只不过它在调用完后做了一次类型转换。这里还有一个要注意的点就是对于比较大的数值，应避免使用attr，防止在做类型转换的过程中数值的最后几位丢失。</p>
+<ul>
+<li>3、zepto无法获取隐藏元素的width,height</li>
+</ul>
+<p>对于隐藏元素，jquery可以获取其宽高，而zepto不可以。因为获取的是计算后的值，而zepto是通过调用元素的getBoundingClientRect()方法，当元素display为none时，getBoundingClientRect()返回的对象所有属性值都为0.</p>
+<ul>
+<li>4、qsa</li>
+</ul>
+<p>(1)对于选择器，zepto会对复杂的选择器直接使用querySelectorAll。而jquery中的sizzle虽然也是尽量使用querySelectorAll，但是它会用rbuggyQSA记录querySelectorAll的bug，没有匹配到兼容问题的才会使用querySelectorAll。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if ( support.qsa &amp;&amp; (!rbuggyQSA || !rbuggyQSA.test( selector )) ) &#123;   </span><br><span class="line"> //newContext.querySelectorAll( newSelector )  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>querySelectorAll的参数需要符合规范，css中规定属性选择器中属性值应该是要加引号的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http://www.w3.org/TR/css3-selectors/#attribute-selectors  </span><br><span class="line">Represents an element with the att attribute whose value is exactly &quot;val&quot;.</span><br></pre></td></tr></table></figure>
+<p>所以不合规范的选择器，在jquery中可能能执行（因为rbuggyQSA做了过滤，sizzle做了兼容），而在zepto中是会报错的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$(&apos;[data-pid=1234]&apos;)  </span><br><span class="line">//zepto.min.js?v=6ec1e34eceb26faf0b345bf4b15cee4c:2 Uncaught DOMException: Failed to /execute &apos;querySelectorAll&apos; on &apos;Document&apos;: &apos;[data-pid=1234]&apos; is not a valid selector.(…)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$(&apos;[data-pid=1234]&apos;)  </span><br><span class="line">//[]</span><br></pre></td></tr></table></figure>
+<p>(2) 此外，如果zepto没有引入selector模块的话，zepto获取select元素的选中option不能用类似jQuery的方法$(‘option[selected]’),因为selected属性不是css的标准属性。</p>
+<p>应该使用<code>$(&#39;option&#39;).not(function(){ return !this.selected })</code></p>
+<p>比如：<br>jQuery:<code>$this.find(&#39;option[selected]&#39;).attr(&#39;data-v&#39;) * 1</code></p>
+<p>zepto:<code>$this.find(&#39;option&#39;).not(function() {return !this.selected}).attr(&#39;data-v&#39;) * 1</code></p>
+<p>但是获取有select中含有disabled属性的元素可以用 <code>$this.find(&quot;option:not(:disabled)&quot;)</code>因为disabled是标准属性。</p>
+<p>参考网址：<a href="https://github.com/madrobby/zepto/issues/503" target="_blank" rel="noopener">https://github.com/madrobby/zepto/issues/503</a></p>
+<p>(3) jquery与zepto两者支持的css属性选择器是不同的：<br>jquery:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[name|=&quot;value&quot;]  </span><br><span class="line">[name*=&quot;value&quot;]  </span><br><span class="line">[name~=&quot;value&quot;]  </span><br><span class="line">[name$=&quot;value&quot;]  </span><br><span class="line">[name=&quot;value&quot;]  </span><br><span class="line">[name!=&quot;value&quot;  </span><br><span class="line">[name^=&quot;value&quot;]  </span><br><span class="line">[name]  </span><br><span class="line">[name=&quot;value&quot;][name2=&quot;value2&quot;]</span><br></pre></td></tr></table></figure>
+<p>zepto由于它的复杂选择器需要符合css标准，是不支持[name|=”value”]这个的。</p>
+<ul>
+<li>5、对宽度、高度的计算方式不同</li>
+</ul>
+<p>首先zepto不支持innerWidth，innerHeight,outerWidth,outerHeight<br>其次，zepto与jquery对于width的计算是不同的。zepto是由盒模型决定的，而jquery的width/height返回的是真实的高宽，不包含padding，border。</p>
+<p>看个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var box=document.createElement(&apos;div&apos;)  </span><br><span class="line">document.body.appendChild(box)  </span><br><span class="line">box.style.width=&apos;10px&apos;  </span><br><span class="line">box.style.padding=&apos;10px&apos;  </span><br><span class="line">box.style.border=&apos;10px soild&apos;  </span><br><span class="line">$(box).width()//30  </span><br><span class="line">$(box).css(&apos;width&apos;)//10px</span><br></pre></td></tr></table></figure>
+<p>而如果是jquery的话，$(box).width()的值应该是10。</p>
+<ul>
+<li>6、offset的返回值</li>
+</ul>
+<p>jquery返回width，height<br>zepto还返回了top,left</p>
+<ul>
+<li>7、动态创建dom</li>
+</ul>
+<p>在将html字符串转为dom的时候，zepto支持指定该dom元素的一些属性，而jquery不支持。</p>
+<p>参看zepto中fragment这个方法，它的第三个参数properties就是这么用的。</p>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tages#zepto" >
+    <span class="tag-code">zepto</span>
+  </a>
+
+  <a href="/tages#jquery" >
+    <span class="tag-code">jquery</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2016/07/06/07-06-读zepto源码（1）zepto/">
+        <span class="nav-arrow">← </span>
+        
+          读zepto源码（1）zepto
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2016/07/10/07-10-去掉可点击元素的半透明背景/">
+        
+          去掉可点击元素的半透明背景
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'https://juzhishang.github.io/2016/07/06/07-06-比较zepto与jquery的区别/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "juzhishang";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "比较zepto与jquery的区别",
+        owner: "juzhishang",
+        repo: "juzhishang.github.io",
+        oauth: {
+          client_id: "19a4bb92d652487fe51f",
+          client_secret: "1758eabb0def22e0a6b8edab473245799754c012"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2018 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="/js/script.js"></script>
+  </body>
+</html>

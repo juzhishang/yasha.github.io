@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="小前端，on my way~">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  <title>
+    
+      鸦杀&#39;s Blog
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  <script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <!--<div class="logo"></div>-->
+      <span>鸦杀's Blog</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link active">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link mobile-active">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <main class="app-body">
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2016/07/15/07-15-鼠标移动事件/">鼠标移动事件</a>
+      </h2>
+      <p class="article-date">July 15, 2016</p>
+      
+        
+  <a href="/tages#事件" >
+    <span class="tag-code">事件</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          鼠标移入相关的事件有：mouseover:冒泡mouseenter:不冒泡mouseover是在鼠标穿过目标元素或其子元素都会触发，而mouseenter是在鼠标穿过目标元素才会触发。
+鼠标移出相关的事件有：mouseout:冒泡mouseleave:不冒泡mouseout是在鼠标离开目标元 ...
+        
+      </div>
+      <a class="more" href="/2016/07/15/07-15-鼠标移动事件/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2016/07/14/07-14-event-relatedTarget/">event-relatedTarget</a>
+      </h2>
+      <p class="article-date">July 14, 2016</p>
+      
+        
+  <a href="/tages#事件" >
+    <span class="tag-code">事件</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          来看下event对象的relatedTarget，它与mouseover、mouseout事件有关。
+它的字面意思为相关目标，对mouseover事件而言，事件的主目标是获得光标的元素，而相关目标就是那个失去光标的元素。类似地，对mouseout事件而言，事件的主目标是失去光标的元素，而相关 ...
+        
+      </div>
+      <a class="more" href="/2016/07/14/07-14-event-relatedTarget/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2016/07/14/07-14-读zepto源码（2）event/">读zepto源码（2）event</a>
+      </h2>
+      <p class="article-date">July 14, 2016</p>
+      
+        
+  <a href="/tages#zepto" >
+    <span class="tag-code">zepto</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          我之前对event这个对象了解的不多，所以zepto的事件机制看的时候还是很懵逼的。也参考了下一些文章：
+
+【zepto学习笔记03】事件机制
+Zepto源码分析-event模块
+
+废话不说，先看下这个模块的我认为比较重要的一些东西吧：
+123456789101112131415161718 ...
+        
+      </div>
+      <a class="more" href="/2016/07/14/07-14-读zepto源码（2）event/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2016/07/14/07-14-jquery中bind-live-delegate的区别/">jquery中bind-live-delegate的区别</a>
+      </h2>
+      <p class="article-date">July 14, 2016</p>
+      
+        
+  <a href="/tages#jquery" >
+    <span class="tag-code">jquery</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          曾经，2年前，面试时被问过这个问题，当时一脸懵逼的表示，我只用过on()啊。。。
+好吧，这个梗是个引子而已。。。我记得，live方法是从1.7开始就过时了。。。日常开发中也很少会再遇到1.7以下的jquery了，毕竟很多时候连jquery也看不到了，它的时代已经慢慢在衰落。。。就当它是一个知 ...
+        
+      </div>
+      <a class="more" href="/2016/07/14/07-14-jquery中bind-live-delegate的区别/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2016/07/14/07-14-focus与focusin的区别/">focus与focusin的区别</a>
+      </h2>
+      <p class="article-date">July 14, 2016</p>
+      
+        
+  <a href="/tages#事件" >
+    <span class="tag-code">事件</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          1、.focusin()指的是当一个元素，或者其内部任何一个元素获得焦点的时候会触发这个事件,因此我们可以在父元素上检测子元素获取焦点的情况。.focus()只在元素本身被触发。
+2、focus事件本身是不冒泡的，但是focusin可以，动态添加元素时，就不需重新绑定焦点事件，通过冒泡就能触 ...
+        
+      </div>
+      <a class="more" href="/2016/07/14/07-14-focus与focusin的区别/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2016/07/14/07-14-自定义事件/">自定义事件</a>
+      </h2>
+      <p class="article-date">July 14, 2016</p>
+      
+        
+  <a href="/tages#事件" >
+    <span class="tag-code">事件</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          刚啃完zepto的event事件机制，正好重温下自定义事件对象。
+在手动触发事件时，我们可以简单的调用相应的方法。比如触发点击：$(&#39;.J_button&#39;).click()它如此便捷，仅仅只是zepto为我们写了一些快捷方法而已，当未传参数时，内部调用了zepto的trigg ...
+        
+      </div>
+      <a class="more" href="/2016/07/14/07-14-自定义事件/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2016/07/10/07-10-禁用ios中触摸显示的系统默认菜单/">禁止ios中触摸显示的系统默认菜单</a>
+      </h2>
+      <p class="article-date">July 10, 2016</p>
+      
+        
+  <a href="/tages#移动端" >
+    <span class="tag-code">移动端</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          在ios中，当你长按一个链接，Safari浏览器将显示链接有关的系统默认菜单。如果不希望显示系统默认菜单，可以这样写:-webkit-touch-callout:none;
+
+        
+      </div>
+      <a class="more" href="/2016/07/10/07-10-禁用ios中触摸显示的系统默认菜单/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2016/07/10/07-10-禁止用户选择页面内容/">禁止用户选择页面内容</a>
+      </h2>
+      <p class="article-date">July 10, 2016</p>
+      
+        
+  <a href="/tages#移动端" >
+    <span class="tag-code">移动端</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          可以通过-webkit-user-select来禁止用户选中页面中的内容html {-webkit-user-select: none;}
+
+        
+      </div>
+      <a class="more" href="/2016/07/10/07-10-禁止用户选择页面内容/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2016/07/10/07-10-去掉可点击元素的半透明背景/">去掉可点击元素的半透明背景</a>
+      </h2>
+      <p class="article-date">July 10, 2016</p>
+      
+        
+  <a href="/tages#移动端" >
+    <span class="tag-code">移动端</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          在Android与ios系统中，点击一个a链接，你会发现点击时会生成一个半透明的灰色区域。这是由webkit私有属性-webkit-tap-highlight-color引起的。
+设置为透明即可：-webkit-tap-highlight-color: rgba(0, 0, 0, 0);,注 ...
+        
+      </div>
+      <a class="more" href="/2016/07/10/07-10-去掉可点击元素的半透明背景/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2016/07/06/07-06-比较zepto与jquery的区别/">比较zepto与jquery的区别</a>
+      </h2>
+      <p class="article-date">July 6, 2016</p>
+      
+        
+  <a href="/tages#zepto" >
+    <span class="tag-code">zepto</span>
+  </a>
+
+  <a href="/tages#jquery" >
+    <span class="tag-code">jquery</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          
+1、zepto的$.each与$().each()
+
+这两个方法不是同一个东西，$.each我们可以使用return false中断遍历，而$().each由于内部调用的是数组的every方法，即便return false还是会全部执行完。
+
+2、zepto data 没有缓存
+
+以前使用 ...
+        
+      </div>
+      <a class="more" href="/2016/07/06/07-06-比较zepto与jquery的区别/">Read more</a>
+    </article>
+  
+
+  
+    <div class="guide-pager">
+  
+    <a href="/page/3/"><span class="page-arrow">← </span>Prev</a>
+  
+  
+    <a href="/page/5/">Next<span class="page-arrow"> →</span></a>
+  
+</div>
+  
+</main>
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2018 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="/js/script.js"></script>
+  </body>
+</html>

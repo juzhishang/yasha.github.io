@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="小前端，on my way~">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  <title>
+    
+      读normalize源码 | 鸦杀&#39;s Blog
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  <script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <!--<div class="logo"></div>-->
+      <span>鸦杀's Blog</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>读normalize源码</h2>
+  <p class="post-date">2016-08-22</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><p>公司有一个项目用了normailize v3.0，于是看了下源码，顺便与4.2.0版本做了对比。</p>
+<p><em>注：这里只是对比4.2.0与3.0的不同点，并不是说这些变动都是在4.2.0中发生的。</em></p>
+<h3 id="防止横屏时重置字体大小"><a href="#防止横屏时重置字体大小" class="headerlink" title="防止横屏时重置字体大小"></a>防止横屏时重置字体大小</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">html &#123;  </span><br><span class="line"> font-family: sans-serif;  </span><br><span class="line"> -ms-text-size-adjust: 100%;  </span><br><span class="line"> -webkit-text-size-adjust: 100%;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>v4.2.0增加了line-height的统一设置：line-height: 1.15;</p>
+<h3 id="移除border默认外边距"><a href="#移除border默认外边距" class="headerlink" title="移除border默认外边距"></a>移除border默认外边距</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">body &#123;  </span><br><span class="line"> margin: 0;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="ie8-9中一些h5标签的display未正确设置为block"><a href="#ie8-9中一些h5标签的display未正确设置为block" class="headerlink" title="ie8-9中一些h5标签的display未正确设置为block"></a>ie8-9中一些h5标签的display未正确设置为block</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">article,  </span><br><span class="line">aside,  </span><br><span class="line">details,  </span><br><span class="line">figcaption,  </span><br><span class="line">figure,  </span><br><span class="line">footer,  </span><br><span class="line">header,  </span><br><span class="line">hgroup,  </span><br><span class="line">main,  </span><br><span class="line">nav,  </span><br><span class="line">section,  </span><br><span class="line">summary &#123;  </span><br><span class="line"> display: block;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4.2.0做了下拆分，然后summary的display改成了list-item：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">article,  </span><br><span class="line">aside,  </span><br><span class="line">footer,  </span><br><span class="line">header,  </span><br><span class="line">nav,  </span><br><span class="line">section &#123;  </span><br><span class="line"> display: block;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line">figcaption,  </span><br><span class="line">figure,  </span><br><span class="line">main &#123; /* 1 */  </span><br><span class="line"> display: block;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line">details, /* 1 */  </span><br><span class="line">menu &#123;  </span><br><span class="line"> display: block;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line">summary &#123;  </span><br><span class="line"> display: list-item;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="这几个标签在IE8-9中的display未定义，progress在Chrome-firefox-opera中不是基线对齐。"><a href="#这几个标签在IE8-9中的display未定义，progress在Chrome-firefox-opera中不是基线对齐。" class="headerlink" title="这几个标签在IE8-9中的display未定义，progress在Chrome-firefox-opera中不是基线对齐。"></a>这几个标签在IE8-9中的display未定义，progress在Chrome-firefox-opera中不是基线对齐。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">audio,  </span><br><span class="line">canvas,  </span><br><span class="line">progress,  </span><br><span class="line">video &#123;  </span><br><span class="line"> display: inline-block;  </span><br><span class="line"> vertical-align: baseline;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4.2.0也做了拆分，因为只有progress需要修正vertical-align,它被单独拎出来。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">audio,  </span><br><span class="line">video &#123;  </span><br><span class="line"> display: inline-block;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line">canvas &#123;  </span><br><span class="line"> display: inline-block;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line">progress &#123;  </span><br><span class="line"> display: inline-block; /* 1 */  </span><br><span class="line"> vertical-align: baseline; /* 2 */  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="audio不支持controls属性的默认不显示"><a href="#audio不支持controls属性的默认不显示" class="headerlink" title="audio不支持controls属性的默认不显示"></a>audio不支持controls属性的默认不显示</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">audio:not[controls] &#123;  </span><br><span class="line"> display: none;  </span><br><span class="line"> height: 0;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="修复IE8-9-hidden属性不起作用的问题以及在IE-safari，firefox22-中隐藏template元素"><a href="#修复IE8-9-hidden属性不起作用的问题以及在IE-safari，firefox22-中隐藏template元素" class="headerlink" title="修复IE8-9-hidden属性不起作用的问题以及在IE-safari，firefox22-中隐藏template元素"></a>修复IE8-9-hidden属性不起作用的问题以及在IE-safari，firefox22-中隐藏template元素</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[hidden],  </span><br><span class="line">template &#123;  </span><br><span class="line"> display: none;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4.2.0也拆分了,template是针对所有ie,[hidden]是针对ie10-</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">template &#123;  </span><br><span class="line"> display: none;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line">[hidden] &#123;  </span><br><span class="line"> display: none;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="ie10鼠标点击时a链接会有灰色背景"><a href="#ie10鼠标点击时a链接会有灰色背景" class="headerlink" title="ie10鼠标点击时a链接会有灰色背景"></a>ie10鼠标点击时a链接会有灰色背景</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a &#123;  </span><br><span class="line">background: transparent;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4.2.0新增了对装饰线的设置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a &#123;  </span><br><span class="line"> background-color: transparent; /* 1 */  </span><br><span class="line"> -webkit-text-decoration-skip: objects; /* 2 */  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>关于装饰线查看张鑫旭的这篇文章：<a href="http://www.zhangxinxu.com/wordpress/2015/06/know-css-text-decoration-style-color-ship/" target="_blank" rel="noopener">http://www.zhangxinxu.com/wordpress/2015/06/know-css-text-decoration-style-color-ship/</a></p>
+<h3 id="去掉a链接点击时或者鼠标划过时的outline"><a href="#去掉a链接点击时或者鼠标划过时的outline" class="headerlink" title="去掉a链接点击时或者鼠标划过时的outline"></a>去掉a链接点击时或者鼠标划过时的outline</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a:hover,  </span><br><span class="line">a:active &#123;  </span><br><span class="line"> outline: 0;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4.2.0优化成<code>outline-width: 0;</code></p>
+<h3 id="abbr支持title属性的说明是完整版。但abbr在ie8-9、safari、chrome中没有下划线，而firefox有。"><a href="#abbr支持title属性的说明是完整版。但abbr在ie8-9、safari、chrome中没有下划线，而firefox有。" class="headerlink" title="abbr支持title属性的说明是完整版。但abbr在ie8-9、safari、chrome中没有下划线，而firefox有。"></a>abbr支持title属性的说明是完整版。但abbr在ie8-9、safari、chrome中没有下划线，而firefox有。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">abbr[title] &#123;  </span><br><span class="line"> border-bottom: 1px dotted;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4.2.0规则改了,移除firefox39-的下划线，所有浏览器加<code>text-decoration</code>修饰</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">abbr[title] &#123;  </span><br><span class="line"> border-bottom: none; /* 1 */  </span><br><span class="line"> text-decoration: underline; /* 2 */  </span><br><span class="line"> text-decoration: underline dotted; /* 2 */  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="firefox4-safari-5-chrome中。默认的粗体不一致"><a href="#firefox4-safari-5-chrome中。默认的粗体不一致" class="headerlink" title="firefox4-safari-5-chrome中。默认的粗体不一致"></a>firefox4-safari-5-chrome中。默认的粗体不一致</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">b,  </span><br><span class="line">strong &#123;  </span><br><span class="line"> font-weight: bold;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4.2.0都改成了bolder?然后我不明白下面第一条设为inherit是在针对Safari 6做什么？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">/**  </span><br><span class="line"> * Prevent the duplicate application of `bolder` by the next rule in Safari 6.  </span><br><span class="line"> */  </span><br><span class="line">b,  </span><br><span class="line">strong &#123;  </span><br><span class="line"> font-weight: inherit;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line">/**  </span><br><span class="line"> * Add the correct font weight in Chrome, Edge, and Safari.  </span><br><span class="line"> */  </span><br><span class="line">  </span><br><span class="line">b,  </span><br><span class="line">strong &#123;  </span><br><span class="line"> font-weight: bolder;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="dfn标签在safari-5和chrome中未被设置为斜体，这里做了修正"><a href="#dfn标签在safari-5和chrome中未被设置为斜体，这里做了修正" class="headerlink" title="dfn标签在safari-5和chrome中未被设置为斜体，这里做了修正"></a>dfn标签在safari-5和chrome中未被设置为斜体，这里做了修正</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dfn &#123;  </span><br><span class="line"> font-style: italic;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="对h1字体大小和上下间距的修正。h1字体大小，session与article标签中的h1的上下间距，它们在firefox4-。safari-5，chrome中不一致。"><a href="#对h1字体大小和上下间距的修正。h1字体大小，session与article标签中的h1的上下间距，它们在firefox4-。safari-5，chrome中不一致。" class="headerlink" title="对h1字体大小和上下间距的修正。h1字体大小，session与article标签中的h1的上下间距，它们在firefox4-。safari-5，chrome中不一致。"></a>对h1字体大小和上下间距的修正。h1字体大小，session与article标签中的h1的上下间距，它们在firefox4-。safari-5，chrome中不一致。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">h1 &#123;  </span><br><span class="line"> font-size: 2em;  </span><br><span class="line"> margin: 0.67em 0;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="ie8-9中mark样式设置，黑色字体黄色背景"><a href="#ie8-9中mark样式设置，黑色字体黄色背景" class="headerlink" title="ie8-9中mark样式设置，黑色字体黄色背景"></a>ie8-9中mark样式设置，黑色字体黄色背景</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mark &#123;  </span><br><span class="line"> color: #000;  </span><br><span class="line"> background: #ff0;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="small字体在各个浏览器中大小不一致，这里统一为80"><a href="#small字体在各个浏览器中大小不一致，这里统一为80" class="headerlink" title="small字体在各个浏览器中大小不一致，这里统一为80"></a>small字体在各个浏览器中大小不一致，这里统一为80</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">small &#123;  </span><br><span class="line"> font-size: 80%;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="防止所有浏览器中的sub和sup影响行高"><a href="#防止所有浏览器中的sub和sup影响行高" class="headerlink" title="防止所有浏览器中的sub和sup影响行高"></a>防止所有浏览器中的sub和sup影响行高</h3><p>sup和sub两个标签是用来表示上标和下标，据HTML标准中对small，sub和sup的大小要求都是smaller，但是如上所示normalize.css给small设的是80%，而sub和sup却是75%，所以为了保持一致，且不影响其他元素的行高，把两者的line-height设为0，然后设置它的垂直以baseline开始，设置top和bottom手动设置两者偏移量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">sub,  </span><br><span class="line">sup &#123;  </span><br><span class="line"> font-size: 75%;  </span><br><span class="line"> line-height: 0;  </span><br><span class="line"> position: relative;  </span><br><span class="line"> vertical-align: baseline;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line">sup &#123;  </span><br><span class="line"> top: -0.5em;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line">sub &#123;  </span><br><span class="line"> bottom: -0.25em;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="移除ie8-9中a标签内img的边框"><a href="#移除ie8-9中a标签内img的边框" class="headerlink" title="移除ie8-9中a标签内img的边框"></a>移除ie8-9中a标签内img的边框</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">img &#123;  </span><br><span class="line"> border: 0;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4.2.0优化成：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">img &#123;  </span><br><span class="line"> border-style: none;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="修复-IE9-中的overflow的怪异表现"><a href="#修复-IE9-中的overflow的怪异表现" class="headerlink" title="修复-IE9-中的overflow的怪异表现"></a>修复-IE9-中的overflow的怪异表现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">svg:not(:root) &#123;  </span><br><span class="line"> overflow: hidden;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="修复-IE-8-9、Safari中-figure元素的默认margin失效"><a href="#修复-IE-8-9、Safari中-figure元素的默认margin失效" class="headerlink" title="修复-IE-8-9、Safari中-figure元素的默认margin失效"></a>修复-IE-8-9、Safari中-figure元素的默认margin失效</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">figure &#123;  </span><br><span class="line"> margin: 1em 40px;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="firefox的hr标签与其他浏览器不一致。firefox-hr默认高度2px-box-sizing为border-box"><a href="#firefox的hr标签与其他浏览器不一致。firefox-hr默认高度2px-box-sizing为border-box" class="headerlink" title="firefox的hr标签与其他浏览器不一致。firefox-hr默认高度2px-box-sizing为border-box"></a>firefox的hr标签与其他浏览器不一致。firefox-hr默认高度2px-box-sizing为border-box</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hr &#123;  </span><br><span class="line"> -moz-box-sizing: content-box;  </span><br><span class="line"> box-sizing: content-box;  </span><br><span class="line"> height: 0;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4.2中增加了ie与edge的溢出显示,然后把moz私有前缀去掉了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hr &#123;  </span><br><span class="line"> box-sizing: content-box;   </span><br><span class="line"> height: 0;  </span><br><span class="line"> overflow: visible;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="默认设置overflow为溢出滚动，不设置的话是溢出显示"><a href="#默认设置overflow为溢出滚动，不设置的话是溢出显示" class="headerlink" title="默认设置overflow为溢出滚动，不设置的话是溢出显示"></a>默认设置overflow为溢出滚动，不设置的话是溢出显示</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pre &#123;  </span><br><span class="line"> overflow: auto;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4.2.0中这条重置被移除</p>
+<h3 id="修复-Safari-5-和-Chrome-中-一些冷门h5标签的奇怪的字体设置，统一字体样式"><a href="#修复-Safari-5-和-Chrome-中-一些冷门h5标签的奇怪的字体设置，统一字体样式" class="headerlink" title="修复-Safari-5-和-Chrome-中-一些冷门h5标签的奇怪的字体设置，统一字体样式"></a>修复-Safari-5-和-Chrome-中-一些冷门h5标签的奇怪的字体设置，统一字体样式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">code,  </span><br><span class="line">kbd,  </span><br><span class="line">pre,  </span><br><span class="line">samp &#123;  </span><br><span class="line"> font-family: monospace, monospace;  </span><br><span class="line"> font-size: 1em;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4.2.0把pre单独拎出来不知道为么。</p>
+<h3 id="修正一些表单元素"><a href="#修正一些表单元素" class="headerlink" title="修正一些表单元素"></a>修正一些表单元素</h3><p>1.修正所有浏览器中颜色不继承的问题<br>2.修正所有浏览器中字体不继承的问题<br>3.修正 Firefox 3+， Safari5 和 Chrome 中外边距不同的问题</p>
+<p>有一些浏览器会把form表单中的一些元素 textarea，text，button，select 中的字体和字体颜色默认会设置成用户的字体或者是浏览器的字体，并不会从父元素继承，所以这里重置了这些元素的默认样式。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">button,  </span><br><span class="line">input,  </span><br><span class="line">optgroup,  </span><br><span class="line">select,  </span><br><span class="line">textarea &#123;  </span><br><span class="line"> color: inherit; /* 1 */  </span><br><span class="line"> font: inherit; /* 2 */  </span><br><span class="line"> margin: 0; /* 3 */  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4.2.0改动如下：把color的继承干掉了，color和font的inherit值改成显示指定，是否inherit有bug?</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">button,  </span><br><span class="line">input,  </span><br><span class="line">optgroup,  </span><br><span class="line">select,  </span><br><span class="line">textarea &#123;  </span><br><span class="line"> font-family: sans-serif; /* 1 */  </span><br><span class="line"> font-size: 100%; /* 1 */  </span><br><span class="line"> line-height: 1.15; /* 1 */  </span><br><span class="line"> margin: 0; /* 2 */  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="修正ie8-9-10中，按钮溢出隐藏的问题，改成溢出显示"><a href="#修正ie8-9-10中，按钮溢出隐藏的问题，改成溢出显示" class="headerlink" title="修正ie8-9-10中，按钮溢出隐藏的问题，改成溢出显示"></a>修正ie8-9-10中，按钮溢出隐藏的问题，改成溢出显示</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">button &#123;  </span><br><span class="line"> overflow: visible;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4.2.0新增了input也为溢出隐藏</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">button,  </span><br><span class="line">input &#123; /* 1 */  </span><br><span class="line"> overflow: visible;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="统一各浏览器text-transform不会继承的问题"><a href="#统一各浏览器text-transform不会继承的问题" class="headerlink" title="统一各浏览器text-transform不会继承的问题"></a>统一各浏览器text-transform不会继承的问题</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">button,  </span><br><span class="line">select &#123;  </span><br><span class="line"> text-transform: none;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="按钮bug修复，统一设置光标样式"><a href="#按钮bug修复，统一设置光标样式" class="headerlink" title="按钮bug修复，统一设置光标样式"></a>按钮bug修复，统一设置光标样式</h3><p>1.避免 Android 4.0.* 中的 WebKit bug ，该bug会破坏原生的audio和video的控制器<br>2.更正 iOS 中无法设置可点击的input的问题<br>3.统一其他类型的input的光标样式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">button,  </span><br><span class="line">html input[type=&quot;button&quot;], /* 1 */  </span><br><span class="line">input[type=&quot;reset&quot;],  </span><br><span class="line">input[type=&quot;submit&quot;] &#123;  </span><br><span class="line"> -webkit-appearance: button; /* 2 */  </span><br><span class="line"> cursor: pointer; /* 3 */  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4.2.0把光标重置移除了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">button,  </span><br><span class="line">html [type=&quot;button&quot;], /* 1 */  </span><br><span class="line">[type=&quot;reset&quot;],  </span><br><span class="line">[type=&quot;submit&quot;] &#123;  </span><br><span class="line"> -webkit-appearance: button; /* 2 */  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="重置disabled按钮的光标样式"><a href="#重置disabled按钮的光标样式" class="headerlink" title="重置disabled按钮的光标样式"></a>重置disabled按钮的光标样式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">button[disabled],  </span><br><span class="line">html input[disabled] &#123;  </span><br><span class="line"> cursor: default;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4.2.0中这条重置被移除</p>
+<h3 id="移除firefox4-input与button元素的padding与border"><a href="#移除firefox4-input与button元素的padding与border" class="headerlink" title="移除firefox4-input与button元素的padding与border"></a>移除firefox4-input与button元素的padding与border</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">button::-moz-focus-inner,  </span><br><span class="line">input::-moz-focus-inner &#123;  </span><br><span class="line"> border: 0;  </span><br><span class="line"> padding: 0;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4.2.0做了优化调整</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">button::-moz-focus-inner,  </span><br><span class="line">[type=&quot;button&quot;]::-moz-focus-inner,  </span><br><span class="line">[type=&quot;reset&quot;]::-moz-focus-inner,  </span><br><span class="line">[type=&quot;submit&quot;]::-moz-focus-inner &#123;  </span><br><span class="line"> border-style: none;  </span><br><span class="line"> padding: 0;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后它又把最先前去掉的outline加回去了。。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">button:-moz-focusring,  </span><br><span class="line">[type=&quot;button&quot;]:-moz-focusring,  </span><br><span class="line">[type=&quot;reset&quot;]:-moz-focusring,  </span><br><span class="line">[type=&quot;submit&quot;]:-moz-focusring &#123;  </span><br><span class="line"> outline: 1px dotted ButtonText;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="修复firefox4-input元素line-height设置了-important的问题-normal-important"><a href="#修复firefox4-input元素line-height设置了-important的问题-normal-important" class="headerlink" title="修复firefox4-input元素line-height设置了-important的问题-normal-important"></a>修复firefox4-input元素line-height设置了-important的问题-normal-important</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">input &#123;  </span><br><span class="line"> line-height: normal;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4.2.0中这条重置被移除</p>
+<h3 id="对checkbox和radio设置统一的box-sizng和padding"><a href="#对checkbox和radio设置统一的box-sizng和padding" class="headerlink" title="对checkbox和radio设置统一的box-sizng和padding"></a>对checkbox和radio设置统一的box-sizng和padding</h3><p>firefox不支持对这两个元素设置box-sizng,padding和width。而ie8/9/10的这两个元素boz-sizng为content-box（ie5.5盒模型），这里统一改成border-box。<br>移除ie8/9/10中多余的padding</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">input[type=&quot;checkbox&quot;],  </span><br><span class="line">input[type=&quot;radio&quot;] &#123;  </span><br><span class="line"> box-sizing: border-box; /* 1 */  </span><br><span class="line"> padding: 0; /* 2 */  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="修复chrome下number类型的input，上下两个箭头处于焦点时鼠标不是箭头的问题。"><a href="#修复chrome下number类型的input，上下两个箭头处于焦点时鼠标不是箭头的问题。" class="headerlink" title="修复chrome下number类型的input，上下两个箭头处于焦点时鼠标不是箭头的问题。"></a>修复chrome下number类型的input，上下两个箭头处于焦点时鼠标不是箭头的问题。</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">input[type=&quot;number&quot;]::-webkit-inner-spin-button,  </span><br><span class="line">input[type=&quot;number&quot;]::-webkit-outer-spin-button &#123;  </span><br><span class="line"> height: auto;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="修正Safari-5-和-Chrome中appearance被设置为searchfield-box-sizing被设置为border-box的问题"><a href="#修正Safari-5-和-Chrome中appearance被设置为searchfield-box-sizing被设置为border-box的问题" class="headerlink" title="修正Safari-5-和-Chrome中appearance被设置为searchfield-box-sizing被设置为border-box的问题"></a>修正Safari-5-和-Chrome中appearance被设置为searchfield-box-sizing被设置为border-box的问题</h3><p>appearance用于控制外观，可选的值查看MDN:<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/-moz-appearance" target="_blank" rel="noopener">https://developer.mozilla.org/en-US/docs/Web/CSS/-moz-appearance</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">input[type=&quot;search&quot;] &#123;  </span><br><span class="line"> -webkit-appearance: textfield; /* 1 */  </span><br><span class="line"> -moz-box-sizing: content-box;  </span><br><span class="line"> -webkit-box-sizing: content-box; /* 2 */  </span><br><span class="line"> box-sizing: content-box;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4.2.0：修正了safari的<code>outline</code>偏移，去除了<code>box-sizing</code>的重置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[type=&quot;search&quot;] &#123;  </span><br><span class="line"> -webkit-appearance: textfield; /* 1 */  </span><br><span class="line"> outline-offset: -2px; /* 2 */  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后移除了OS X系统中chrome与safari的内边距与取消按钮</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">/**  </span><br><span class="line"> * Remove the inner padding and cancel buttons in Chrome and Safari on OS X.  </span><br><span class="line"> */  </span><br><span class="line">  </span><br><span class="line">[type=&quot;search&quot;]::-webkit-search-cancel-button,  </span><br><span class="line">[type=&quot;search&quot;]::-webkit-search-decoration &#123;  </span><br><span class="line"> -webkit-appearance: none;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="设置fildset统一样式"><a href="#设置fildset统一样式" class="headerlink" title="设置fildset统一样式"></a>设置fildset统一样式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">fieldset &#123;  </span><br><span class="line"> border: 1px solid #c0c0c0;  </span><br><span class="line"> margin: 0 2px;  </span><br><span class="line"> padding: 0.35em 0.625em 0.75em;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="修复ie8-9中legend标签不继承color属性的问题，清除默认padding"><a href="#修复ie8-9中legend标签不继承color属性的问题，清除默认padding" class="headerlink" title="修复ie8-9中legend标签不继承color属性的问题，清除默认padding"></a>修复ie8-9中legend标签不继承color属性的问题，清除默认padding</h3><p>color属性无法继承是用设置border为0解决。这个我一开始还以为是作者注释写错→ →。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">legend &#123;  </span><br><span class="line"> border: 0; /* 1 */  </span><br><span class="line"> padding: 0; /* 2 */  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4.2.0 中，颜色继承的解决方案改成了color: inherit，也修正了IE与Edeg中的文本包含bug</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">/**  </span><br><span class="line"> * 1\. Correct the text wrapping in Edge and IE.  </span><br><span class="line"> * 2\. Correct the color inheritance from `fieldset` elements in IE.  </span><br><span class="line"> * 3\. Remove the padding so developers are not caught out when they zero out  </span><br><span class="line"> *    `fieldset` elements in all browsers.  </span><br><span class="line"> */  </span><br><span class="line">  </span><br><span class="line">legend &#123;  </span><br><span class="line"> box-sizing: border-box; /* 1 */  </span><br><span class="line"> color: inherit; /* 2 */  </span><br><span class="line"> display: table; /* 1 */  </span><br><span class="line"> max-width: 100%; /* 1 */  </span><br><span class="line"> padding: 0; /* 3 */  </span><br><span class="line"> white-space: normal; /* 1 */  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="移除ie8-9中-textarea默认的垂直滚动条"><a href="#移除ie8-9中-textarea默认的垂直滚动条" class="headerlink" title="移除ie8-9中-textarea默认的垂直滚动条"></a>移除ie8-9中-textarea默认的垂直滚动条</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">textarea &#123;  </span><br><span class="line"> overflow: auto;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="统一设置optgroup为bold"><a href="#统一设置optgroup为bold" class="headerlink" title="统一设置optgroup为bold"></a>统一设置optgroup为bold</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">optgroup &#123;  </span><br><span class="line"> font-weight: bold;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4.2.0中这条重置被移除</p>
+<h3 id="表格边框、padding重置"><a href="#表格边框、padding重置" class="headerlink" title="表格边框、padding重置"></a>表格边框、padding重置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">table &#123;  </span><br><span class="line"> border-collapse: collapse;  </span><br><span class="line"> border-spacing: 0;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line">td,  </span><br><span class="line">th &#123;  </span><br><span class="line"> padding: 0;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4.2.0中这条重置被移除</p>
+<hr>
+<p>###总结</p>
+<p>reset已经过时，对比4.2与3.0也可以发现，4.2移除了很多样式重置的代码，normalize越来越趋向于bug修复，正如其名，让浏览器正常显示。</p>
+<p>在性能上，4.2比3.0也更加注意，避免了使用不必要的缩写属性。比如<code>border: 0</code>改成<code>border-style: none;</code></p>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tages#css" >
+    <span class="tag-code">css</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2016/08/22/08-22-读zepto源码（5）ie/">
+        <span class="nav-arrow">← </span>
+        
+          读zepto源码（5）ie
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2017/06/18/隐藏元素的n种方法，你get了么/">
+        
+          隐藏元素的n种方法，你get了么
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'https://juzhishang.github.io/2016/08/22/08-22-读normalize源码/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "juzhishang";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "读normalize源码",
+        owner: "juzhishang",
+        repo: "juzhishang.github.io",
+        oauth: {
+          client_id: "19a4bb92d652487fe51f",
+          client_secret: "1758eabb0def22e0a6b8edab473245799754c012"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2018 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="/js/script.js"></script>
+  </body>
+</html>

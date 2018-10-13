@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="小前端，on my way~">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  <title>
+    
+      红米魅族12px问题 | 鸦杀&#39;s Blog
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  <script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <!--<div class="logo"></div>-->
+      <span>鸦杀's Blog</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>红米魅族12px问题</h2>
+  <p class="post-date">2016-06-04</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><p>这也是在上周做需求的时候遇到的问题，在此记录下。</p>
+<h3 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h3><p>我们在做h5页面时，字体用的是px方案，根据不同dpr设置相应的px值</p>
+<table><br><br><thead><br><br><tr><br><br><th>dpr</th><br><br><th>px</th><br><br></tr><br><br></thead><br><br><tbody><br><br><tr><br><br><td>1</td><br><br><td><em>0.5</em></td><br><br></tr><br><br><tr><br><br><td>2 (5,6)</td><br><br><td>1</td><br><br></tr><br><br><tr><br><br><td>2.5(mx3)</td><br><br><td><em>2.5/2</em></td><br><br></tr><br><br><tr><br><br><td>2.75(小米note)</td><br><br><td>2.75/2</td><br><br></tr><br><br><tr><br><br><td>3（6plus）</td><br><br><td><em>3/2</em></td><br><br></tr><br><br><tr><br><br><td>4(三星note4)</td><br><br><td>2</td><br><br></tr><br><br></tbody><br><br></table>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">.px2px(@name, @px)&#123;  </span><br><span class="line"> @&#123;name&#125;: round(@px / 2) * 1px;  </span><br><span class="line"> [data-dpr=&quot;2&quot;] &amp; &#123;  </span><br><span class="line"> @&#123;name&#125;: @px * 1px;  </span><br><span class="line"> &#125;  </span><br><span class="line"> // for mx3  </span><br><span class="line"> [data-dpr=&quot;2.5&quot;] &amp; &#123;  </span><br><span class="line"> @&#123;name&#125;: round(@px * 2.5 / 2) * 1px;  </span><br><span class="line"> &#125;  </span><br><span class="line"> // for 小米note  </span><br><span class="line"> [data-dpr=&quot;2.75&quot;] &amp; &#123;  </span><br><span class="line"> @&#123;name&#125;: round(@px * 2.75 / 2) * 1px;  </span><br><span class="line"> &#125;  </span><br><span class="line"> [data-dpr=&quot;3&quot;] &amp; &#123;  </span><br><span class="line"> @&#123;name&#125;: round(@px / 2 * 3) * 1px  </span><br><span class="line"> &#125;  </span><br><span class="line"> // for 三星note4  </span><br><span class="line"> [data-dpr=&quot;4&quot;] &amp; &#123;  </span><br><span class="line"> @&#123;name&#125;: @px * 2px;  </span><br><span class="line"> &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在html中,通过内联的js,将页面划分为16等分，1rem为页面宽度/16，初始字体为页面宽度/16 px。添加data-dpr属性，动态创建meta标签，禁止缩放，根据data-dpr的值，设置scale值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">! function(a) &#123;  </span><br><span class="line"> function b() &#123;  </span><br><span class="line"> a.rem = f.getBoundingClientRect().width / 16, f.style.fontSize = a.rem + &quot;px&quot;  </span><br><span class="line"> &#125;  </span><br><span class="line"> var c, d = a.navigator.appVersion.match(/iphone/gi) ? a.devicePixelRatio : 1,  </span><br><span class="line"> e = 1 / d,  </span><br><span class="line"> f = document.documentElement,  </span><br><span class="line"> g = document.createElement(&quot;meta&quot;);  </span><br><span class="line"> if (a.dpr = d, a.addEventListener(&quot;resize&quot;, function() &#123;  </span><br><span class="line"> clearTimeout(c), c = setTimeout(b, 300)  </span><br><span class="line"> &#125;, !1), a.addEventListener(&quot;pageshow&quot;, function(a) &#123;  </span><br><span class="line"> a.persisted &amp;&amp; (clearTimeout(c), c = setTimeout(b, 300))  </span><br><span class="line"> &#125;, !1), f.setAttribute(&quot;data-dpr&quot;, d), g.setAttribute(&quot;name&quot;, &quot;viewport&quot;), g.setAttribute(&quot;content&quot;, &quot;initial-scale=&quot; + e + &quot;, maximum-scale=&quot; + e + &quot;, minimum-scale=&quot; + e + &quot;, user-scalable=no&quot;), f.firstElementChild) f.firstElementChild.appendChild(g);  </span><br><span class="line"> else &#123;  </span><br><span class="line"> var h = document.createElement(&quot;div&quot;);  </span><br><span class="line"> h.appendChild(g), document.write(h.innerHTML)  </span><br><span class="line"> &#125;  </span><br><span class="line"> b()  </span><br><span class="line">&#125;(window);</span><br></pre></td></tr></table></figure>
+<p>注意：<em>简单粗暴的将Android的dpr都设为了1…</em></p>
+<p>在css的方案中，我们设置了dpr的不同值，1，2，2.5，2.75，3，4.。。。但是由于html中计算dpr简单粗暴，对于Android而言，就是使用px方案时，字体/2.。。</p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>回到正题，我的需求。。。</p>
+<p>UI提供的设计稿中，tag标签的字体是20px，padding是4px。使用px方案时，在Android中实际就是10px了。但是10px在一些设备的支持并不好，毕竟它小于12px。红米和魅族在渲染的时候，就会出现上边距小于下边距的情况。就像是在行高不变的情况下字体却被放大了。。。</p>
+<h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p>我首先想到的是rem方案。我们的设计稿是750px 。假定UI给的字体还是20px。</p>
+<p>页面实际计算出来的font-sie为：20/46.875*(html页面宽度/16)，只要页面宽度大于450，计算出来的font-size应该会大于12px。其实现在市面上的手机，页面宽度都是大于480的。。。当然这样有一个不好的问题就是在大屏幕的安卓机上，字体就会比px方案变大很多。<br>参考：<code>http://screensiz.es/phone</code></p>
+<p>方案2，使用transform:scale()缩放，仍然使用px方案。保证dpr计算后的字体最小是12px,然后用缩放解决。<br>.px2px(font-size,24);—&gt;安卓下计算结果是12px，transform:scale(0.8)。12*0.8=19.6px。约等于20px。当然这里需要注意的是字体不能随意乱放大，缩放可能会引起一些布局错乱的问题啦。</p>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tages#移动端" >
+    <span class="tag-code">移动端</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2016/05/29/05-29-vertial-align释义/">
+        <span class="nav-arrow">← </span>
+        
+          vertial-align释义
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2016/06/14/06-14-overflow-scrolling-touch/">
+        
+          overflow-scrolling-touch
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'https://juzhishang.github.io/2016/06/04/06-04-红米魅族12px问题/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "juzhishang";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "红米魅族12px问题",
+        owner: "juzhishang",
+        repo: "juzhishang.github.io",
+        oauth: {
+          client_id: "19a4bb92d652487fe51f",
+          client_secret: "1758eabb0def22e0a6b8edab473245799754c012"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2018 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="/js/script.js"></script>
+  </body>
+</html>
