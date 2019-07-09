@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="小前端，on my way~">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  <title>
+    
+      vuex源码阅读3—module | 鸦杀&#39;s Blog
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  <script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <!--<div class="logo"></div>-->
+      <span>鸦杀's Blog</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>vuex源码阅读3—module</h2>
+  <p class="post-date">2018-09-11</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><p>今天来看下模块。在vuex源码中，module目录只包含了module.js与module-collection.js这2个文件。</p>
+<p>首先来看module.js，因为它是被module-collection.js依赖的～</p>
+<p>代码片段的高亮有问题，将就着看吧，有空换个模板。。。</p>
+<h5 id="module"><a href="#module" class="headerlink" title="module"></a>module</h5><p>导出的是一个Module类，本身代码是简单的，实例中会包含如下实例属性</p>
+<ul>
+<li>runtime， 记录模块是否在运行时</li>
+<li>_children，用来存储子模块</li>
+<li>_rawModule，存储原始模块</li>
+<li>state,原始模块的state</li>
+</ul>
+<p>以及原型中包含</p>
+<ul>
+<li>namespaced，访问器属性，表示是否有命名空间</li>
+<li>子模块的添加、移除、和获取方法</li>
+<li>更新原始模块的方法</li>
+<li>对原始模块中_children、getters、mutations、actions的遍历方法</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; forEachValue &#125; <span class="keyword">from</span> <span class="string">'../util'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Base data struct for store's module, package with some attribute and method</span></span><br><span class="line"><span class="comment">// store的Module类</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Module</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 接收2个参数，分别是原始模块和运行时</span></span><br><span class="line">  <span class="keyword">constructor</span> (rawModule, runtime) &#123;</span><br><span class="line">    <span class="comment">// 设置实例的运行时属性</span></span><br><span class="line">    <span class="keyword">this</span>.runtime = runtime</span><br><span class="line">    <span class="comment">// Store some children item</span></span><br><span class="line">    <span class="comment">// 设置实例的_children属性，默认是空对象（没有原型的）</span></span><br><span class="line">    <span class="keyword">this</span>._children = <span class="built_in">Object</span>.create(<span class="literal">null</span>)</span><br><span class="line">    <span class="comment">// Store the origin module object which passed by programmer</span></span><br><span class="line">    <span class="comment">// 设置实例的_rawModule属性</span></span><br><span class="line">    <span class="keyword">this</span>._rawModule = rawModule</span><br><span class="line">    <span class="comment">// rawState来源是原始模块的state属性</span></span><br><span class="line">    <span class="keyword">const</span> rawState = rawModule.state</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Store the origin module's state</span></span><br><span class="line">    <span class="comment">// 设置实例的state属性，值来源是rawState方法的执行结果</span></span><br><span class="line">    <span class="comment">// 或者rawState本身，若不存在rawState，则是空对象</span></span><br><span class="line">    <span class="keyword">this</span>.state = (<span class="keyword">typeof</span> rawState === <span class="string">'function'</span> ? rawState() : rawState) || &#123;&#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 返回原始模块是否存在namespaced属性</span></span><br><span class="line">  <span class="comment">// 访问器属性</span></span><br><span class="line">  get namespaced () &#123;</span><br><span class="line">    <span class="keyword">return</span> !!<span class="keyword">this</span>._rawModule.namespaced</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 在_children上添加子模块</span></span><br><span class="line">  addChild (key, <span class="built_in">module</span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>._children[key] = <span class="built_in">module</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 移除子模块</span></span><br><span class="line">  removeChild (key) &#123;</span><br><span class="line">    <span class="keyword">delete</span> <span class="keyword">this</span>._children[key]</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 获取子模块</span></span><br><span class="line">  getChild (key) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>._children[key]</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 更新原始模块的namespaced、actions、mutations和getters</span></span><br><span class="line">  update (rawModule) &#123;</span><br><span class="line">    <span class="keyword">this</span>._rawModule.namespaced = rawModule.namespaced</span><br><span class="line">    <span class="keyword">if</span> (rawModule.actions) &#123;</span><br><span class="line">      <span class="keyword">this</span>._rawModule.actions = rawModule.actions</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (rawModule.mutations) &#123;</span><br><span class="line">      <span class="keyword">this</span>._rawModule.mutations = rawModule.mutations</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (rawModule.getters) &#123;</span><br><span class="line">      <span class="keyword">this</span>._rawModule.getters = rawModule.getters</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 遍历子模块，调用fn方法</span></span><br><span class="line">  forEachChild (fn) &#123;</span><br><span class="line">    forEachValue(<span class="keyword">this</span>._children, fn)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 遍历原始模块的getters，调用fn</span></span><br><span class="line">  forEachGetter (fn) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>._rawModule.getters) &#123;</span><br><span class="line">      forEachValue(<span class="keyword">this</span>._rawModule.getters, fn)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 遍历原始模块的actions，调用fn</span></span><br><span class="line">  forEachAction (fn) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>._rawModule.actions) &#123;</span><br><span class="line">      forEachValue(<span class="keyword">this</span>._rawModule.actions, fn)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 遍历原始模块的mutations,调用fn</span></span><br><span class="line">  forEachMutation (fn) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>._rawModule.mutations) &#123;</span><br><span class="line">      forEachValue(<span class="keyword">this</span>._rawModule.mutations, fn)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="module-collection"><a href="#module-collection" class="headerlink" title="module-collection"></a>module-collection</h5><p>这个也是导出一个类：ModuleCollection。它的作用就是根据传入的对象，创建模块树。构造器方法就是调用了原型方法register，进行模块注册。</p>
+<p>原型上包含如下方法：</p>
+<ul>
+<li>根据路径获取模块</li>
+<li>根据路径获取命名空间</li>
+<li>更新原始模块</li>
+<li>模块的注册及取消注册</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Module <span class="keyword">from</span> <span class="string">'./module'</span></span><br><span class="line"><span class="comment">// assert是个断言函数，如果条件不满足会抛出错误</span></span><br><span class="line"><span class="keyword">import</span> &#123; assert, forEachValue &#125; <span class="keyword">from</span> <span class="string">'../util'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 模块集合构造器</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">ModuleCollection</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span> (rawRootModule) &#123;</span><br><span class="line">    <span class="comment">// register root module (Vuex.Store options)</span></span><br><span class="line">    <span class="comment">// 注册根模块</span></span><br><span class="line">    <span class="keyword">this</span>.register([], rawRootModule, <span class="literal">false</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 根据路径获取子模块</span></span><br><span class="line">  get (path) &#123;</span><br><span class="line">    <span class="keyword">return</span> path.reduce(<span class="function">(<span class="params"><span class="built_in">module</span>, key</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">module</span>.getChild(key)</span><br><span class="line">    &#125;, <span class="keyword">this</span>.root)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 根据路径获取子模块的命名空间</span></span><br><span class="line">  getNamespace (path) &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="built_in">module</span> = <span class="keyword">this</span>.root</span><br><span class="line">    <span class="keyword">return</span> path.reduce(<span class="function">(<span class="params">namespace, key</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">module</span> = <span class="built_in">module</span>.getChild(key)</span><br><span class="line">      <span class="keyword">return</span> namespace + (<span class="built_in">module</span>.namespaced ? key + <span class="string">'/'</span> : <span class="string">''</span>)</span><br><span class="line">    &#125;, <span class="string">''</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 更新原始根模块</span></span><br><span class="line">  update (rawRootModule) &#123;</span><br><span class="line">    <span class="comment">// 更新this.root属性</span></span><br><span class="line">    update([], <span class="keyword">this</span>.root, rawRootModule)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 注册模块</span></span><br><span class="line">  register (path, rawModule, runtime = <span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="comment">// 非生产环境，断言原始模块</span></span><br><span class="line">    <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">'production'</span>) &#123;</span><br><span class="line">      assertRawModule(path, rawModule)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建模块实例</span></span><br><span class="line">    <span class="keyword">const</span> newModule = <span class="keyword">new</span> Module(rawModule, runtime)</span><br><span class="line">    <span class="comment">// path是空数组，直接赋值</span></span><br><span class="line">    <span class="keyword">if</span> (path.length === <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="keyword">this</span>.root = newModule</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// path.slice(0, -1)返回的是一个删除最后一个元素的新数组</span></span><br><span class="line">      <span class="comment">// 为什么要这个调用this.get呢，</span></span><br><span class="line">      <span class="comment">// 因此此时最后一个元素的模块还不存在，它的要在调用addChild添加才有的</span></span><br><span class="line">      <span class="comment">// 获取父模块</span></span><br><span class="line">      <span class="keyword">const</span> parent = <span class="keyword">this</span>.get(path.slice(<span class="number">0</span>, <span class="number">-1</span>))</span><br><span class="line">      <span class="comment">// 在父模块中插入子模块</span></span><br><span class="line">      parent.addChild(path[path.length - <span class="number">1</span>], newModule)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// register nested modules</span></span><br><span class="line">    <span class="comment">// 如果原始模块存在modules对象，说明是嵌套的，需要递归调用来注册</span></span><br><span class="line">    <span class="keyword">if</span> (rawModule.modules) &#123;</span><br><span class="line">      forEachValue(rawModule.modules, (rawChildModule, key) =&gt; &#123;</span><br><span class="line">        <span class="keyword">this</span>.register(path.concat(key), rawChildModule, runtime)</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 取消注册</span></span><br><span class="line">  unregister (path) &#123;</span><br><span class="line">    <span class="comment">// 获取父对象</span></span><br><span class="line">    <span class="keyword">const</span> parent = <span class="keyword">this</span>.get(path.slice(<span class="number">0</span>, <span class="number">-1</span>))</span><br><span class="line">    <span class="comment">// 获取路径数组的最后一个元素</span></span><br><span class="line">    <span class="keyword">const</span> key = path[path.length - <span class="number">1</span>]</span><br><span class="line">    <span class="comment">// 判断当前子模块是否处于运行时，如果否，可以直接移除子模块</span></span><br><span class="line">    <span class="keyword">if</span> (!parent.getChild(key).runtime) <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    parent.removeChild(key)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 更新模块</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">update</span> (<span class="params">path, targetModule, newModule</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 非生产环境，断言原始模块</span></span><br><span class="line">  <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">'production'</span>) &#123;</span><br><span class="line">    assertRawModule(path, newModule)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// update target module</span></span><br><span class="line">  <span class="comment">// 更新模块，update方法在module.js中已经看到过了，</span></span><br><span class="line">  <span class="comment">// 它是被添加在Module的原型上，每一个module实例都有该方法</span></span><br><span class="line">  <span class="comment">// 这里只涉及模块中namespaced、actions、mutations和getters的更新</span></span><br><span class="line">  targetModule.update(newModule)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// update nested modules</span></span><br><span class="line">  <span class="comment">// 更新嵌套模块</span></span><br><span class="line">  <span class="keyword">if</span> (newModule.modules) &#123;</span><br><span class="line">    <span class="comment">// 遍历子模块</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> key <span class="keyword">in</span> newModule.modules) &#123;</span><br><span class="line">      <span class="comment">// 如果目标模块上没有对应的key,在非生产环境打印警告日志，生产环境则直接返回</span></span><br><span class="line">      <span class="keyword">if</span> (!targetModule.getChild(key)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">'production'</span>) &#123;</span><br><span class="line">          <span class="built_in">console</span>.warn(</span><br><span class="line">            <span class="string">`[vuex] trying to add a new module '<span class="subst">$&#123;key&#125;</span>' on hot reloading, `</span> +</span><br><span class="line">            <span class="string">'manual reload is needed'</span></span><br><span class="line">          )</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">// 递归调用更新方法</span></span><br><span class="line">      update(</span><br><span class="line">        path.concat(key),</span><br><span class="line">        targetModule.getChild(key),</span><br><span class="line">        newModule.modules[key]</span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 下面2个断言配置对象，都包含assert和expected属性</span></span><br><span class="line"><span class="comment"> * assert表示条件判断</span></span><br><span class="line"><span class="comment"> * expected表示期待的类型</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> functionAssert = &#123;</span><br><span class="line">  assert: <span class="function"><span class="params">value</span> =&gt;</span> <span class="keyword">typeof</span> value === <span class="string">'function'</span>,</span><br><span class="line">  expected: <span class="string">'function'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数或者带handler方法的对象</span></span><br><span class="line"><span class="keyword">const</span> objectAssert = &#123;</span><br><span class="line">  assert: <span class="function"><span class="params">value</span> =&gt;</span> <span class="keyword">typeof</span> value === <span class="string">'function'</span> ||</span><br><span class="line">    (<span class="keyword">typeof</span> value === <span class="string">'object'</span> &amp;&amp; <span class="keyword">typeof</span> value.handler === <span class="string">'function'</span>),</span><br><span class="line">  expected: <span class="string">'function or object with "handler" function'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 断言的类型，getters和mutations对应“函数断言”，actions对应“对象断言”</span></span><br><span class="line"><span class="keyword">const</span> assertTypes = &#123;</span><br><span class="line">  getters: functionAssert,</span><br><span class="line">  mutations: functionAssert,</span><br><span class="line">  actions: objectAssert</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 断言原始模块</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">assertRawModule</span> (<span class="params">path, rawModule</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 遍历['getters'，'mutations'，'actions']</span></span><br><span class="line">  <span class="comment">// 如果原始对象不包含该属性，就返回</span></span><br><span class="line">  <span class="built_in">Object</span>.keys(assertTypes).forEach(<span class="function"><span class="params">key</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!rawModule[key]) <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 断言配置</span></span><br><span class="line">    <span class="keyword">const</span> assertOptions = assertTypes[key]</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 遍历原始模块的getters|mutations|actions</span></span><br><span class="line">    <span class="comment">// 对getters|mutations|actions中的每一个属性做断言</span></span><br><span class="line">    <span class="comment">// 判断类型是否符合，如果不符合，抛出错误信息</span></span><br><span class="line">    forEachValue(rawModule[key], (value, type) =&gt; &#123;</span><br><span class="line">      assert(</span><br><span class="line">        assertOptions.assert(value),</span><br><span class="line">        makeAssertionMessage(path, key, type, value, assertOptions.expected)</span><br><span class="line">      )</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 详细的错误信息</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">makeAssertionMessage</span> (<span class="params">path, key, type, value, expected</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> buf = <span class="string">`<span class="subst">$&#123;key&#125;</span> should be <span class="subst">$&#123;expected&#125;</span> but "<span class="subst">$&#123;key&#125;</span>.<span class="subst">$&#123;type&#125;</span>"`</span></span><br><span class="line">  <span class="keyword">if</span> (path.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    buf += <span class="string">` in module "<span class="subst">$&#123;path.join(<span class="string">'.'</span>)&#125;</span>"`</span></span><br><span class="line">  &#125;</span><br><span class="line">  buf += <span class="string">` is <span class="subst">$&#123;<span class="built_in">JSON</span>.stringify(value)&#125;</span>.`</span></span><br><span class="line">  <span class="keyword">return</span> buf</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tages#vuex" >
+    <span class="tag-code">vuex</span>
+  </a>
+
+  <a href="/tages#源码阅读" >
+    <span class="tag-code">源码阅读</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2018/09/10/vuex源码阅读2—plugins/">
+        <span class="nav-arrow">← </span>
+        
+          vuex源码阅读2—plugins
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2018/09/13/vuex源码阅读4—helpers与util/">
+        
+          vuex源码阅读4—helpers与util
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'https://juzhishang.github.io/2018/09/11/vuex源码阅读3—module/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "juzhishang";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "vuex源码阅读3—module",
+        owner: "juzhishang",
+        repo: "juzhishang.github.io",
+        oauth: {
+          client_id: "19a4bb92d652487fe51f",
+          client_secret: "1758eabb0def22e0a6b8edab473245799754c012"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2019 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="/js/script.js"></script>
+  </body>
+</html>

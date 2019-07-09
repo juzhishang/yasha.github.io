@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="小前端，on my way~">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  <title>
+    
+      [译]Understanding ECMAScript6 函数 | 鸦杀&#39;s Blog
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  <script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <!--<div class="logo"></div>-->
+      <span>鸦杀's Blog</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>[译]Understanding ECMAScript6 函数</h2>
+  <p class="post-date">2015-11-23</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p>函数是任何编程语言的重要组成部分，而自从JavaScript被引入以来，JavaScript的函数就未有太多改变。遗留下来的积压问题及微妙行为使我们很容易犯错误，或者需要更多的代码来实现一个非常常见的行为。</p>
+<p>ECMAScript6的函数是一个巨大的进步，它考虑了javascript开发者多年的抱怨与请求。结果就是大量的在ECMAScript5之上的函数的增量改进使得javascript编程更不容易出错且比以往更加强大。</p>
+<h4 id="默认参数"><a href="#默认参数" class="headerlink" title="默认参数"></a>默认参数</h4><p>javascript函数的独特之处在于它们允许传递任意数量的参数，不管在函数定义中声明的参数数量是多少。这允许你定义可以处理不同参数数量的函数，当提供参数时往往只是覆盖默认值。在ECMAScript5及以前，你可能会使用以下模式来完成：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">makeRequest</span>(<span class="params">url, timeout, callback</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    timeout = timeout || <span class="number">2000</span>;</span><br><span class="line">    callback = callback || <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// the rest of the function</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此例中，timeout和callback事实上都是可选的因为如果不提供的话它们都会给出默认值。当第一个操作数为假时，逻辑OR操作总是返回第二个操作数。因为有名字的未明确提供值的函数参数被设置为undefined，逻辑OR操作往往被用来为缺省的参数提供默认值。然而，这个方法的瑕疵在于timeout的有效值可能是0，但是它会被2000替代因为0是价值。</p>
+<p>其他确定参数缺省的方法包括arguments.length检测传递的参数数量或者直接检测每一个参数看是不是undefined。</p>
+<p>ECMAScript6通过为参数提供默认值使传递默认参数变得更加容易，当参数未正式传递时使用初始化的值。比如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">makeRequest</span>(<span class="params">url, timeout = <span class="number">2000</span>, callback = function(</span>) </span>&#123;&#125;) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// the rest of the function</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里，只有第一个参数被要求总是传递。另两个参数有默认值，它使函数体更小因为你再也不需要添加任何代码来检测缺省值。当带三个参数的makeRequest()被调用时，不使用默认值。比如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// uses default timeout and callback</span></span><br><span class="line">makeRequest(<span class="string">"/foo"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// uses default callback</span></span><br><span class="line">makeRequest(<span class="string">"/foo"</span>, <span class="number">500</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// doesn't use defaults</span></span><br><span class="line">makeRequest(<span class="string">"/foo"</span>, <span class="number">500</span>, <span class="function"><span class="keyword">function</span>(<span class="params">body</span>) </span>&#123;</span><br><span class="line">    doSomething(body);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>任何带默认值的参数被认为是可选的参数，而那些没有默认值的被认为是必填参数。</p>
+<p>对任何参数指定默认值都是可能的，包括那些在没有默认值的参数之前的参数。比如，这样也行：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">makeRequest</span>(<span class="params">url, timeout = <span class="number">2000</span>, callback</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// the rest of the function</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这种情况，timeout的默认值只有在没有第二个参数传入时或者第二个参数明确传入了undefined时才会被使用。比如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// uses default timeout</span></span><br><span class="line">makeRequest(<span class="string">"/foo"</span>, <span class="literal">undefined</span>, <span class="function"><span class="keyword">function</span>(<span class="params">body</span>) </span>&#123;</span><br><span class="line">    doSomething(body);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// uses default timeout</span></span><br><span class="line">makeRequest(<span class="string">"/foo"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// doesn't use default timeout</span></span><br><span class="line">makeRequest(<span class="string">"/foo"</span>, <span class="literal">null</span>, <span class="function"><span class="keyword">function</span>(<span class="params">body</span>) </span>&#123;</span><br><span class="line">    doSomething(body);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>在有默认参数值的情况中，值null被认为有效于是默认值就不会被使用。</p>
+<p>也许默认参数最有意思的功能在于默认值不必是一个原始值，比如，你可以执行一个函数来重新得到默认参数：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getCallback</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    returnfunction() &#123;</span><br><span class="line">        <span class="comment">// some code    &#125;;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">makeRequest</span>(<span class="params">url, timeout = <span class="number">2000</span>, callback = getCallback(</span>)) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// the rest of the function</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里，如果未提供最后一个参数，函数getCallback()被调用以获取正确的默认值。这给动态将信息注入函数带来了许多可能性。</p>
+<h4 id="剩余参数"><a href="#剩余参数" class="headerlink" title="剩余参数"></a>剩余参数</h4><p>既然JavaScript函数可以传入任何数量的参数，就不需要总是具体定义每个参数了。在早期的时候，JavaScript提供了arguments对象来作为未单独定义每一个传入的参数时检测所有函数参数的一种方式。大多数情况下它做得很好，但它也会成为工作时的小麻烦，比如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">first</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> result = first,</span><br><span class="line">        i = <span class="number">1</span>,</span><br><span class="line">        len = <span class="built_in">arguments</span>.length;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (i &lt; len) &#123;</span><br><span class="line">        result += <span class="built_in">arguments</span>[i];</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个函数将所有传递给它的参数相加，所以你调用sum(1)或者sum(1,2,3,4)它都会运行。关于函数，有几件事情需要注意。首先，函数能够处理多个参数并不是显而易见的。你可以添加一些更多的命名参数，但你总是缺少这个函数可以获取任意数量参数的提示。第二，因为第一个参数被命名且直接使用，你不得不在查找arguments对象时以1开始而不是以0开始。记得使用合适的arguments索引并不一定是困难的，但还有一件事是跟踪。ECMAScript6引入多余参数来帮助解决这些问题。  </p>
+<p> 剩余参数由命名参数前加三个点(…)标示。这个命名参数于是变成了一个包含了剩余参数的数组（这也是为什么它们被称为“剩余”参数）。比如，sum()可以用剩余参数重写如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">first, ...numbers</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> result = first,</span><br><span class="line">        i = <span class="number">0</span>,</span><br><span class="line">        len = numbers.length;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (i &lt; len) &#123;</span><br><span class="line">        result += numbers[i];</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个版本的函数中，numbers是一个剩余参数，它包含了第一个之后的所有参数（不像arguments，包含包括第一个在内的所有参数）。这意味着你可以不用担心的从开始到结束遍历numbers。额外令人高兴的是，你一看就知道函数能够处理任意数量的参数。</p>
+<p>注意：sum()方法实际上并不需要任何命名参数。理论上，你可以只使用剩余参数，有它仍然会做完全一样的工作。然而，这种情况下，剩余参数实际上就同arguments一样了，所以你并没有真正得到任何额外的好处。</p>
+<p>剩余函数唯一的限制是，在函数声明时它后面不能跟随任何其他的命名参数。比如，这会引起语法错误：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Syntax error: Can't have a named parameter after rest parametersfunction sum(first, ...numbers, last) &#123;</span></span><br><span class="line">    <span class="keyword">let</span> result = first,</span><br><span class="line">        i = <span class="number">0</span>,</span><br><span class="line">        len = numbers.length;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (i &lt; len) &#123;</span><br><span class="line">        result += numbers[i];</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里，参数last紧随在剩余参数numbers之后，导致语法错误。</p>
+<p>剩余参数在JavaScript中是设计用来取代arguments的。原来的ECMAScript4取消了arguments然后增加了剩余参数以允许传递无限制数量的参数给函数。尽管ECMAScript4从未产生过，这个想法被保留了下来，而后重新在ECMAScript6中被引入，尽管arguments在此语言中未被移除。</p>
+<h4 id="解构参数"><a href="#解构参数" class="headerlink" title="解构参数"></a>解构参数</h4><p>第一章中，你了解了解构赋值。解构也可以在赋值表达式上下文的外面使用，也许，最有趣的是有解构参数的情况。</p>
+<p>需要大量可选参数的函数使用一个或更多可选的参数对象是很常见的，比如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setCookie</span>(<span class="params">name, value, options</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    options = options || &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> secure = options.secure,</span><br><span class="line">        path = options.path,</span><br><span class="line">        domain = options.domain,</span><br><span class="line">        expires = options.expires;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...&#125;</span></span><br><span class="line"></span><br><span class="line">setCookie(<span class="string">"type"</span>, <span class="string">"js"</span>, &#123;</span><br><span class="line">    secure: <span class="literal">true</span>,</span><br><span class="line">    expires: <span class="number">60000</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>在JavaScript库中，有许多类似setCookie()的函数，name与value必填，但其他的都不是。既然其他数据没有优先顺序，就有道理使用带命名属性的可选对象替代额外的命名参数。这个方法很好，尽管它使得期待的输入对函数有一点不透明。</p>
+<p>使用解构参数，之前的可以被重写如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function setCookie(name, value, &#123; secure, path, domain, expires &#125;) &#123;</span><br><span class="line"></span><br><span class="line">    // ...&#125;</span><br><span class="line"></span><br><span class="line">setCookie(&quot;type&quot;, &quot;js&quot;, &#123;</span><br><span class="line">    secure: true,</span><br><span class="line">    expires: 60000</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>这个函数的行为与之前的例子相似，最大的不同点是第三个参数使用解构取出了必要的数据。这样做哪些参数是真的需要就一清二楚了，而在xxx中解构参数也表现得像常规的参数一样，如果它们被设置为undefined就不会被传递。</p>
+<p>这种模式的其中一种怪癖是，如果解构参数为提供时将抛出错误。如果setCookie()调用时只带两个参数，它返回一个允许时错误。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Error!</span></span><br><span class="line">setCookie(<span class="string">"type"</span>, <span class="string">"js"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>这段代码抛出错误，因为第三个参数缺失（undefined）。要理解为什么这是一个错误，它有助于理解解构参数它真的只是一个解构赋值的速记而已。JavaScript引擎实际上是这样做的：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setCookie</span>(<span class="params">name, value, options</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> &#123; secure, path, domain, expires &#125; = options;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>因为解构赋值在右边的表达式被解释为null或undefined时抛出错误，第三个参数未传时同样如此。</p>
+<p>你可以通过为解构参数传递一个默认值来解决这一行为:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setCookie</span>(<span class="params">name, value, &#123; secure, path, domain, expires &#125; = &#123;&#125;</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这样例子现在同本节中的第一个例子完全一样了，为解构参数提供默认值意味着如果setCookie()的第三个参数未提供的话，secure, path, domain和 expires都是undefined。</p>
+<p>注意：推荐总是为解构参数提供默认值以避免所有使用时的独特错误。</p>
+<h4 id="展开运算符"><a href="#展开运算符" class="headerlink" title="展开运算符"></a>展开运算符</h4><p>展开运算符与多余参数密切相关。剩余运算符允许你指定多个独立的可以组合成一个数组的参数，而扩展运算符允许你指定一个可以被分割的每一项可以像独立参数一样传给函数的数组。想想Math.Max()方法，它接收任何数量的参数并返回其中一个最高值。它的基本用法如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> value1 = <span class="number">25</span>,</span><br><span class="line">    value2 = <span class="number">50</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Math</span>.max(value1, value2));      <span class="comment">// 50</span></span><br></pre></td></tr></table></figure></p>
+<p>当你只是处理两个值时，正如这个例子中，Math.Max()很容易使用。传入两个值，然后返回更高一点的值。但如果是在数值中跟踪值呢？现在你想要找最高的值？Math.Max()方法不允许你传入数组，所以在ECMAScript5及更早，你会坚持自己搜索数组或者使用apply()：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> values = [<span class="number">25</span>, <span class="number">50</span>, <span class="number">75</span>, <span class="number">100</span>]</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Math</span>.max.apply(<span class="built_in">Math</span>, values));  <span class="comment">// 100</span></span><br></pre></td></tr></table></figure></p>
+<p>而可能的是，以这种方式使用apply()有一点令人迷惑——带上额外的语法实际上它似乎混淆了代码的真实含义。</p>
+<p>ECMAScript6开展运算符使这种情况非常简单。你可以传入一个数组，用剩余参数中同样使用的…模式作为前缀来代替调用apply()。JavaScript引擎就会将数组分割成个体而后传入：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> values = [<span class="number">25</span>, <span class="number">50</span>, <span class="number">75</span>, <span class="number">100</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">// equivalent to</span></span><br><span class="line"><span class="comment">// console.log(Math.max(25, 50, 75, 100));</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Math</span>.max(...values));           <span class="comment">// 100</span></span><br></pre></td></tr></table></figure></p>
+<p>现在调用Math.Max()看起来更方便点了，且避免了简单数学操作中的this绑定的复杂性。</p>
+<p>你同样可以用其它参数混合和匹配展开运算符，假设你想要Math.max()的最大值返回0（负数潜入数组的情况）你可以单独传入这个参数，然后对其它参数还是使用展开运算符：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> values = [<span class="number">-25</span>, <span class="number">-50</span>, <span class="number">-75</span>, <span class="number">-100</span>]</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Math</span>.max(...values, <span class="number">0</span>));        <span class="comment">// 0</span></span><br></pre></td></tr></table></figure></p>
+<p>此例中，最后一个传入Math.max()的参数是0，它在用展开运算符传入的其它参数后面。</p>
+<p>参数传递的展开运算符使得对函数参数使用数组更加简单。你可能会发现在大多数情况下，它可合理取代apply()方法。</p>
+<h4 id="name属性"><a href="#name属性" class="headerlink" title="name属性"></a>name属性</h4><p>在JavaScript中识别函数是很有挑战性的，函数定义有多种方式。此外，匿名函数的流行使得调试变得更加困难，经常导致堆栈跟踪难以阅读和解释。由于这些原因，ECMAScript对所有函数添加了name属性。在ECMAScript6程序的所有函数的name属性都会有一个适当值，而其它的将会是空字符串。比如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doSomething</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// ...&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> doAnotherThing = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// ...&#125;;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(doSomething.name);          <span class="comment">// "doSomething"</span></span><br><span class="line"><span class="built_in">console</span>.log(doAnotherThing.name);       <span class="comment">// "doAnotherThing"</span></span><br></pre></td></tr></table></figure></p>
+<p>这段代码中，doSomething()有一个等于”doSomething”的name属性，因为它是一个函数声明。匿名函数表达式doAnotherThing()有一个”doAnotherThing”的name是由于它所指派的变量。</p>
+<p>上个例子中虽然函数声明和函数表达式都很容易为之找到一个合适的name，而ECMAScript进一步保证了所有的函数有一个合适的name：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> doSomething = <span class="function"><span class="keyword">function</span> <span class="title">doSomethingElse</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// ...&#125;;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">    get firstName() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Nicholas"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    sayName: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(doSomething.name);      <span class="comment">// "doSomethingElse"</span></span><br><span class="line"><span class="built_in">console</span>.log(person.sayName.name);   <span class="comment">// "sayName"</span></span><br><span class="line"><span class="built_in">console</span>.log(person.firstName.name); <span class="comment">// "get firstName"</span></span><br></pre></td></tr></table></figure></p>
+<p>此例中， </p>
+<p>doSomething.name是 “doSomethingElse”因为函数表达式本身也有一个name，它优先于函数指派的变量。 person.sayName()的name属性是”sayName”,因为值解释来自对象字面量。相似的，personfirstName事实上是一个getter方法，所以为表明这种差异，它的name是”get firstName”（同样地，setter方法用”set”作为前置）。关于函数名有几个其他的特殊情况。使用bind()创建的函数它们的name用”bound”作为前缀，而用Function构造器创建的函数name为”anonymous”。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> doSomething = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// ...&#125;;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(doSomething.bind().name);   <span class="comment">// "bound doSomething"</span></span><br><span class="line"><span class="built_in">console</span>.log((<span class="keyword">new</span> <span class="built_in">Function</span>()).name);     <span class="comment">// "anonymous"</span></span><br></pre></td></tr></table></figure></p>
+<p>绑定函数的name总是用被绑定函数名前缀”bound”，所以doSomething()的绑定版本是”bound doSomething”。</p>
+<h4 id="块级函数"><a href="#块级函数" class="headerlink" title="块级函数"></a>块级函数</h4><p>在ECMAScript3及更早，出现在块（块级函数）内的函数声明是一个技术上的语法错误，但是许多浏览器仍旧支持。不幸地是，每个浏览器允许的语法表现的方式都略有不同。因此，避免块内函数声明被认为是最佳实践（最好的选择是使用函数表达式）。</p>
+<p>为解决这种不兼容的行为，ECMAScript5严格模式引入了函数声明在块中被使用时的错误，比如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">"use strict"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Throws a syntax error in ES5, not so in ES6function doSomething() &#123;</span></span><br><span class="line">        <span class="comment">// ...    &#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>ECMAScript5中，这段代码抛出一个语法错误，在ECMAScript6中，doSomething()方法被认为是一个块级声明，它可以在被定义的同一个块内被访问和调用，比如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">"use strict"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">typeof</span> doSomething);        <span class="comment">// "function"function doSomething() &#123;</span></span><br><span class="line">        <span class="comment">// ...    &#125;</span></span><br><span class="line"></span><br><span class="line">    doSomething();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> doSomething);            <span class="comment">// "undefined"</span></span><br></pre></td></tr></table></figure></p>
+<p>块级函数被提升到被定义的块的顶部，所以</p>
+<p>typeof doSomething 返回“function”尽管代码中它出现在函数声明的前面。一旦if块执行完成，doSomething()不再存在。</p>
+<p>一旦执行流离开函数定义所在的块，函数定义就被移除，在这一点上块级函数能类似let函数表达式。关键的不同点是块级函数被提升到包含块的顶部，而let函数表达式不被提升。比如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">"use strict"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">typeof</span> doSomething);        <span class="comment">// throws error</span></span><br><span class="line">    <span class="keyword">let</span> doSomething = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// ...    &#125;</span></span><br><span class="line"></span><br><span class="line">    doSomething();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> doSomething);</span><br></pre></td></tr></table></figure></p>
+<p>这里，typeof doSomething执行完后代码就结束执行，因为let语句还未被执行。</p>
+<p>你要使用块级函数还是let表达式取决于你是否想要提升行为。</p>
+<p>ECMAScript6也允许在非严格模式下使用块级函数，但行为略有不同。这些声明不是被提升到块顶部，而是在包含块和全局环境中都被提升。比如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ECMAScript 6 behaviorif (true) &#123;</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">typeof</span> doSomething);        <span class="comment">// "function"function doSomething() &#123;</span></span><br><span class="line">        <span class="comment">// ...    &#125;</span></span><br><span class="line"></span><br><span class="line">    doSomething();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> doSomething);            <span class="comment">// "function"</span></span><br></pre></td></tr></table></figure></p>
+<p>此例中，doSomething()被提升到全局作用域，所以在块外面依旧存在。ECMAScript6标准化了这一行为以移除之前存在的不兼容的浏览器行为。ECMAScript6运行时就会全部表现一致。</p>
+<h4 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h4><p>ECMAScript中最有意思的部分之一是箭头函数。顾名思义，箭头函数是使用“箭头”(=&gt;)新语法定义的函数。然而，箭头函数与传统JavaScript函数在一些重要的方面表现不同。</p>
+<p>词汇this绑定——函数内this的值由箭头函数在哪里定义决定，而不是由它在哪里使用决定。</p>
+<p>不可再生——箭头函数不可被作为构造器使用，如果使用时带new将抛出异常。</p>
+<p>this不可改变——函数内的this不可改变，它在函数的整个生命周期中保持相同的值。</p>
+<p>没有arguments对象——你不能通过arguments对象访问参数，你必须使用命名参数或者其他ES6特征比如剩余参数。</p>
+<p>这些差异存在有几个原因。首先，this绑定在JavaScript中是一个常见的错误来源，很容易丢失函数内对这个值的跟踪将招致意外的后果。第二，通过限制箭头函数简单地执行带单个this值的代码，JavaScript可以更容易优化这些操作（与可能会被用来做构造函数或其他修改的常规函数相对）。</p>
+<p>注意：箭头函数与其他函数遵循同样的规则，它也有name属性。</p>
+<h5 id="语法"><a href="#语法" class="headerlink" title="语法"></a><strong>语法</strong></h5><p>箭头函数的语法有很多种，它取决于你试图完成什么。所有的变化从函数参数开始，后面跟箭头，再后面跟函数体。所有的参数和主体可以根据用法采用不同的形式。比如，下面的箭头函数传入一个参数然后简单得返回它：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> reflect = <span class="function"><span class="params">value</span> =&gt;</span> value;</span><br><span class="line"></span><br><span class="line"><span class="comment">// effectively equivalent to:var reflect = function(value) &#123;</span></span><br><span class="line">    <span class="keyword">return</span> value;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>如果箭头函数中只有一个参数，这一个参数可以不需要更多的语法直接使用，接下来的箭头和箭头右边的表达式被求值并返回。尽管那里没有明确的返回语句，箭头函数会返回传入的第一个参数。</p>
+<p>如果你传入不只一个参数，你必须用括号将这些参数扩起来，比如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> sum = <span class="function">(<span class="params">num1, num2</span>) =&gt;</span> num1 + num2;</span><br><span class="line"></span><br><span class="line"><span class="comment">// effectively equivalent to:var sum = function(num1, num2) &#123;</span></span><br><span class="line">    <span class="keyword">return</span> num1 + num2;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>sum()函数简单地相加两个参数并返回结果。唯一的不同是参数用小括号括起来，参数之间用逗号分隔（正如传统的函数一样）。如果函数没有参数，你必须包括一对空括号。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> getName = <span class="function"><span class="params">()</span> =&gt;</span> <span class="string">"Nicholas"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// effectively equivalent to:var getName = function() &#123;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"Nicholas"</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>当你想提供一个更加传统的函数体，也许它由一个以上的表达式组成，这时你需要用大括号将函数体括起来，然后显示地定义一个返回值，比如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> sum = <span class="function">(<span class="params">num1, num2</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> num1 + num2;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// effectively equivalent to:var sum = function(num1, num2) &#123;</span></span><br><span class="line">    <span class="keyword">return</span> num1 + num2;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>你可以或多或少地将花括号内的参数与传统函数中的同等对待，除了参数不可用的例外。</p>
+<p>如果你想要创建一个什么都不做的函数，你就需要包含花括号：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> doNothing = <span class="function"><span class="params">()</span> =&gt;</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// effectively equivalent to:var doNothing = function() &#123;&#125;;</span></span><br></pre></td></tr></table></figure></p>
+<p>因为花括号用来表示函数体，想要从函数体外返回对象字面量的箭头函数必须用圆括号包裹字面量。比如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> getTempItem = <span class="function"><span class="params">id</span> =&gt;</span> (&#123; <span class="attr">id</span>: id, <span class="attr">name</span>: <span class="string">"Temp"</span> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// effectively equivalent to:var getTempItem = function(id) &#123;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        id: id,</span><br><span class="line">        name: <span class="string">"Temp"</span></span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>用圆括号包裹对象字面量表明圆括号是一个对象字面量而不是函数体。</p>
+<h5 id="立即调用函数表达式（IIFEs）"><a href="#立即调用函数表达式（IIFEs）" class="headerlink" title="立即调用函数表达式（IIFEs）"></a><strong>立即调用函数表达式（IIFEs）</strong></h5><p>JavaScript中函数的一个流行应用是立即调用函数表达式（IIFEs）。IIFEs允许你定义一个匿名函数，然后立即调用它而不保存引用。当你想要创建一个对剩余程序屏蔽的域，这种模式就派上用场了。比如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> person = (<span class="function"><span class="keyword">function</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        getName() &#123;</span><br><span class="line">            <span class="keyword">return</span> name;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">&#125;(<span class="string">"Nicholas"</span>));</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(person.getName());      <span class="comment">// "Nicholas"</span></span><br></pre></td></tr></table></figure></p>
+<p>这段代码中，IIFE被用来创建一个带有getName()方法的对象，这个方法用name参数做返回值，有效地使name成为了被返回对象的私有成员。</p>
+<p>你可以用箭头函数来完成同样的事，只要你用小括号将箭头函数括起来：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> person = <span class="function">(<span class="params">(name</span>) =&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        getName() &#123;</span><br><span class="line">            <span class="keyword">return</span> name;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">&#125;)(<span class="string">"Nicholas"</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(person.getName());      <span class="comment">// "Nicholas"</span></span><br></pre></td></tr></table></figure></p>
+<p>注意这个例子中括号的位置与前面的不同。前面的例子使用函数关键字用小括号将整个表达式包裹起来，包括传给函数的参数“Nicholas”，这个例子只有箭头函数外面有小括号，然后传入参数。</p>
+<h5 id="词法this绑定"><a href="#词法this绑定" class="headerlink" title="词法this绑定"></a><strong>词法this绑定</strong></h5><p>JavaScript中最常见的误区之一就是函数内的this绑定。因为单一函数中this的值取决于它被调用时的上下文，是可变的。当你想要影响一个对象时很有可能错误地影响另一个对象。考虑下面的例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> PageHandler = &#123;</span><br><span class="line"></span><br><span class="line">    id: <span class="string">"123456"</span>,</span><br><span class="line"></span><br><span class="line">    init: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">document</span>.addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.doSomething(event.type);     <span class="comment">// error</span></span><br><span class="line">        &#125;, <span class="literal">false</span>);</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    doSomething: <span class="function"><span class="keyword">function</span>(<span class="params">type</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"Handling "</span> + type  + <span class="string">" for "</span> + <span class="keyword">this</span>.id);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>这段代码中，对象</p>
+<p>PageHandler 目的在于处理页面上的交互。init()方法被调用以建立交互，而后这个方法反过来指定一个事件处理程序来调用this.doSomething()。然而，这段代码并不能按预期工作。对this.doSomething()的调用中断了因为this是对元素对象（在这里的情况是document）的引用，是事件的目标，而不是绑定到PageHandler。如果你试着运行这段代码，事件处理程序激活时你会得到一个错误，因为this.doSomething()在目标document对象中不存在。</p>
+<p>你可以在函数中明确使用bind()方法将this的值绑定到PageHandler ：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> PageHandler = &#123;</span><br><span class="line"></span><br><span class="line">    id: <span class="string">"123456"</span>,</span><br><span class="line"></span><br><span class="line">    init: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">document</span>.addEventListener(<span class="string">"click"</span>, (<span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.doSomething(event.type);     <span class="comment">// no error</span></span><br><span class="line">        &#125;).bind(<span class="keyword">this</span>), <span class="literal">false</span>);</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    doSomething: <span class="function"><span class="keyword">function</span>(<span class="params">type</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"Handling "</span> + type  + <span class="string">" for "</span> + <span class="keyword">this</span>.id);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>现在，代码能如预期工作，但是可能会看起来有点奇怪。通过调用bind(this)，你确实创建了一个新的、this被绑定到当前this即PageHandler的函数。现在这段代码按你期待的方式工作，尽管你不得不创建一个额外的函数以完成这项工作。</p>
+<p>箭头函数内含了this绑定。这意味着箭头函数中this的值总是同箭头函数定义时的域中this的值一致。比如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> PageHandler = &#123;</span><br><span class="line"></span><br><span class="line">    id: <span class="string">"123456"</span>,</span><br><span class="line"></span><br><span class="line">    init: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">document</span>.addEventListener(<span class="string">"click"</span>,</span><br><span class="line">                event =&gt; <span class="keyword">this</span>.doSomething(event.type), <span class="literal">false</span>);</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    doSomething: <span class="function"><span class="keyword">function</span>(<span class="params">type</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"Handling "</span> + type  + <span class="string">" for "</span> + <span class="keyword">this</span>.id);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>这个例子中事件处理程序是一个调用了this.doSomething()的箭头函数。this的值同没有init()时是一样的，所以这个版本的例子与使用bind()的那个相比要更加简单。尽管doSomething()方法不返回值，对函数体而言它仍然是有必要执行的唯一语句，所以没有必要包含大括号。</p>
+<p>箭头函数的目的是成为一次性函数，所以不能用来定义新的类型。显而易见，这是丢失了常规函数有的原型属性。如果你尝试对箭头函数使用new操作符，你会得到一个错误：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> MyType = <span class="function"><span class="params">()</span> =&gt;</span> &#123;&#125;,</span><br><span class="line">    object = <span class="keyword">new</span> MyType();  <span class="comment">// error - you can't use arrow functions with 'new'</span></span><br></pre></td></tr></table></figure></p>
+<p>既然，this的值是静态绑定到this函数的，你不能用call()、apply()或者bind()来改变this的值。</p>
+<p>箭头函数的简明语法使得用它们做数组处理成为了最佳选择。比如，如果你想要用自定义比较来排序数组，你通常会这样写：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> result = values.sort(<span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a - b;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>对一个非常简单的程序而言，这里的语法就过多了。相比之下，更简洁的箭头函数版本：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> result = values.sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a - b);</span><br></pre></td></tr></table></figure></p>
+<p>接受了回调函数比如sort(), map()和 reduce()的箭头方法都可以受益于带箭头函数的简单语法，它将看起来复杂的程序转化为简单的代码。</p>
+<p>一般来说，箭头函数被设计用在匿名函数通常被使用的地方，它们的目的真的不是用来长时间保持，因此无法将箭头函数作为构造器使用。箭头函数用于传给其他函数的回调是最好的，正如我们在这节中看到的例子一样。</p>
+<h5 id="词法arguments绑定"><a href="#词法arguments绑定" class="headerlink" title="词法arguments绑定"></a><strong>词法arguments绑定</strong></h5><p>尽管箭头函数没有它们自己的arguments对象，它们也有可能接受一个来自包含函数的的arguments对象。那个arguments对象是可用的，不管后来箭头函数在哪里执行。比如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createArrowFunctionReturningFirstArg</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">arguments</span>[<span class="number">0</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> arrowFunction = createArrowFunctionReturningFirstArg(<span class="number">5</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(arrowFunction());       <span class="comment">// 5</span></span><br></pre></td></tr></table></figure></p>
+<p>在createArrowFunctionReturningFirstArg()中，arguments[0]被创建的箭头函数引用。这个引用包含了传给createArrowFunctionReturningFirstArg()的第一个参数，当箭头函数后来执行的时候，它返回5，这就是传给createArrowFunctionReturningFirstArg()的第一个参数。尽管箭头函数不再处于创建它的函数的域中，arguments作为一个词法绑定保持可用。</p>
+<h5 id="标识箭头函数"><a href="#标识箭头函数" class="headerlink" title="标识箭头函数"></a><strong>标识箭头函数</strong></h5><p>尽管有不同的语法，箭头函数仍然是函数，它们这样被识别：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> comparator = <span class="function">(<span class="params">a, b</span>) =&gt;</span> a - b;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> comparator);                 <span class="comment">// "function"</span></span><br><span class="line"><span class="built_in">console</span>.log(comparator <span class="keyword">instanceof</span> <span class="built_in">Function</span>);    <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
+<p>typeof 和instanceof 在处理箭头函数时同其他函数都表现一致。</p>
+<p>也和其他函数一样，你还是可以使用call(),apply()和bind()尽管这个函数的this绑定并不会被影响。下面是一些例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> sum = <span class="function">(<span class="params">num1, num2</span>) =&gt;</span> num1 + num2;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(sum.call(<span class="literal">null</span>, <span class="number">1</span>, <span class="number">2</span>));      <span class="comment">// 3</span></span><br><span class="line"><span class="built_in">console</span>.log(sum.apply(<span class="literal">null</span>, [<span class="number">1</span>, <span class="number">2</span>]));   <span class="comment">// 3var boundSum = sum.bind(null, 1, 2);</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(boundSum());                <span class="comment">// 3</span></span><br></pre></td></tr></table></figure></p>
+<p>这个例子中，用call()和apply()调用sum()函数，像你在任何函数中一样传入参数。bind()方法用于创建boundSum()，他自己有两个参数绑定到1和2，所以它们不需要被直接传递。</p>
+<p>箭头函数适合用在任何你当前在使用匿名函数表达式的地方，比如回调。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>在ECMAScript6中，函数并未经历巨大改变。但有相当一系列的增量变化使得它们的使用更简单。</p>
+<p>当一个特定的参数没有指定时，默认函数参数允许你简单的指定想要使用的值。在ECMAScript6之前，这将需要一些额外的代码在函数中检测参数是否存在并分配不同的值。</p>
+<p>剩余函数允许你简单的将所有应该被放置的剩余参数指定为一个数组，使用一个新数组，然后让你指出要包含哪些参数使得剩余参数成为比arguments更加灵活的解决方案。</p>
+<p>解构参数使用解构语法使得使用函数参数时选项对象更加透明。你感兴趣的实际数据可以与其他命名参数一起列出来。</p>
+<p>展开运算符是剩余参数的同伴，允许你在调用函数时将数组解构成单独的参数。在ECMAScript6之前，传递包含在数组中的单个参数的唯一方式是要么手动指定每个参数要么使用apply()。有了展开运算符，你可以简单地对任何函数传递数组而不必担心函数的this绑定。</p>
+<p>name属性的添加有助于调试和执行时更容易识别函数。此外，ECMAScript6正式地定义了块级函数行为，因此严格模式下它们不再是一个语法错误。</p>
+<p>在ECMAScript6中对函数而言最大的改变是箭头函数的添加。箭头函数是设计使用在匿名函数通常使用的地方。箭头函数有更加简洁的语法，词法this绑定，且没有arguments对象。此外，箭头函数不能改变它们的this绑定所以不能被作为构造器使用。</p>
+</section>
+    <!-- Tags START -->
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2015/11/23/译-Understanding-ECMAScript6-基本知识/">
+        <span class="nav-arrow">← </span>
+        
+          [译]Understanding ECMAScript6 基本知识
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2015/11/24/web全栈工程师的自我修养/">
+        
+          web全栈工程师的自我修养
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'https://juzhishang.github.io/2015/11/23/译-Understanding-ECMAScript6-函数/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "juzhishang";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "[译]Understanding ECMAScript6 函数",
+        owner: "juzhishang",
+        repo: "juzhishang.github.io",
+        oauth: {
+          client_id: "19a4bb92d652487fe51f",
+          client_secret: "1758eabb0def22e0a6b8edab473245799754c012"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2019 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="/js/script.js"></script>
+  </body>
+</html>

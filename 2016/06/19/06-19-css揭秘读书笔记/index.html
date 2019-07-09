@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="小前端，on my way~">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  <title>
+    
+      css揭秘读书笔记 | 鸦杀&#39;s Blog
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  <script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <!--<div class="logo"></div>-->
+      <span>鸦杀's Blog</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>css揭秘读书笔记</h2>
+  <p class="post-date">2016-06-19</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><p>昨天看完第一章引言，它讲到了标准的制定过程：(1)编辑草案(ED),(2)首个公开工作草案(FPWD),(3)工作草案(WD),(4)候选推荐规范(CR),(5)提名推荐规范(PR),(6)正式推荐规范(REC),浏览器的支持一般是从工作草案开始的，而到了候选推荐规范这一阶段，就相对稳定了。</p>
+<p>关于浏览器前缀，浏览器对于一些私有的、非标准属性的支持，通常会加浏览器前缀。这会造成私有前缀的滥用，因为有些特性只有部分浏览器需要加前缀，而很多人没查过支持情况，先一股脑全加上了。后期的维护也是一个很大的成本，当一些非常老旧版本的浏览器被淘汰的时候。书中作者提到了她的插件prefixfree，不过需要在页面中引入该插件。而autoprefixer是目前比较流行的方案，它使用can i use中的数据库来判断需要加哪些浏览器前缀。这是种预处理的方式。</p>
+<p>话说，css开始流行后处理的方案了，比如我听过postCss，cssNext，有空再去看看。</p>
+<p>css编码技巧，DRY和WET。如何保持代码的DRY原则和可维护性一直是我们需要关注的话题，如文中所言，我们需要做的，就是<code>尽量减少改动时需要编辑的地方</code>。对我而言，css一直都没有好好去遵循这一规范。文中举的几个例子，深受启发。</p>
+<p>1)当某些值相互依赖时，应该把它们的相互关系用代码表达出来，而不是写死。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">font-size:20px;  </span><br><span class="line">line-height:30px;</span><br></pre></td></tr></table></figure>
+<p>可以改成</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">font-size:20px;  </span><br><span class="line">line-height:1.5;</span><br></pre></td></tr></table></figure>
+<p>font-size也可以改成百分比或者em，因为它们都是相对于父级的font-size，不过我觉得这个可以根据具体场景判断是否需要这么改。如果UI就是希望父级的字号和子元素不相互影响呢？</p>
+<p>关于设置不同色调的按钮，文中的方案是background设置一个半透明的背景(liner-gradient)，然后不同的按钮设置不同的background-color。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">button&#123;  </span><br><span class="line"> padding: .3em .8em;  </span><br><span class="line"> border:1px solid rgba(0,0,0,.1);  </span><br><span class="line"> background:#58a linear-gradient(hsla(0,0%,100%,.2),transparent);  </span><br><span class="line"> border-radius:.2em;  </span><br><span class="line"> box-shadow:0 .05em .25em rgba(0,0,0,.5);  </span><br><span class="line"> color:white;  </span><br><span class="line"> text-shadow:0 -.05em .05em rgba(0,0,0,.5);  </span><br><span class="line"> font-size:125%;  </span><br><span class="line"> line-height:1.5;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line">button.cancel&#123;  </span><br><span class="line"> background-color:#c00;  </span><br><span class="line">&#125;  </span><br><span class="line">button.ok&#123;  </span><br><span class="line"> background-color#6b0;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2)代码易维护性与代码量少的取舍</p>
+<p>其实我觉得还有一点就是尽量减少css重复渲染的原则，很多时候它也与这两个是互斥的。</p>
+<p>就拿文中的例子来举例：<code>border-width:10px 10px 10px 0</code>与<code>border-width:10px;border-left-width:0</code>。我的想法就是遵循公司规范啦。</p>
+<p>3)善用继承</p>
+<p>其实一直都知道inherit这一属性值，曾经看过一篇文章说它有兼容性问题，然后就没有去使用了。或许，我不应该去畏惧这种bug，毕竟已经连在哪个浏览器有bug都不记得了，或许是IE678呢，233。</p>
+<p>inherit取的总是父元素的<em>计算值</em>，如果是伪元素就是取其宿主元素的计算值，使用它可以省去很多重复的代码，可维护性更好。<br>比如文中的例子，气泡框的小箭头。它继承了宿主元素的border与background。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">.callout&#123;  </span><br><span class="line"> position:relative;  </span><br><span class="line">&#125;  </span><br><span class="line">.callout::before&#123;  </span><br><span class="line"> content:&apos;&apos;;  </span><br><span class="line"> position:absolute;  </span><br><span class="line"> top:-.4em;  </span><br><span class="line"> left:1em;  </span><br><span class="line"> padding:.35em;  </span><br><span class="line"> background:inherit;  </span><br><span class="line"> border:inherit;  </span><br><span class="line"> border-right:0;  </span><br><span class="line"> border-bottom:0;  </span><br><span class="line"> transform:rotate(45deg);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>关于媒体查询，它应该用在较大或者较小的视口下完全改变网站设计形态，比如把侧栏改成水平布局。而不是用来修补网站在一些分辨率上出现的问题，媒体查询不能以一种连续的方式来修复问题，它的工作原理是基于某几个特定的阶梯（断点）。而它的断点不应该由具体的设备来决定，而是应该根据设计自身来决定。而且，每个媒体查询都会增加成本，添加太多的话，css代码会很重的。<br>所以，我们使用的思路就是尽量实现弹性可伸缩的布局，并在媒体查询的各个断点区间内指定相应的尺寸。</p>
+<h2 id="2016-06-09"><a href="#2016-06-09" class="headerlink" title="2016-06-09"></a>2016-06-09</h2></section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tages#css" >
+    <span class="tag-code">css</span>
+  </a>
+
+  <a href="/tages#读书笔记" >
+    <span class="tag-code">读书笔记</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2016/06/19/06-19-如何唤起app/">
+        <span class="nav-arrow">← </span>
+        
+          如何唤起app
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2016/06/23/06-23-如何获取服务器时间/">
+        
+          如何获取服务器时间
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'https://juzhishang.github.io/2016/06/19/06-19-css揭秘读书笔记/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "juzhishang";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "css揭秘读书笔记",
+        owner: "juzhishang",
+        repo: "juzhishang.github.io",
+        oauth: {
+          client_id: "19a4bb92d652487fe51f",
+          client_secret: "1758eabb0def22e0a6b8edab473245799754c012"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2019 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="/js/script.js"></script>
+  </body>
+</html>

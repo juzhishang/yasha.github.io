@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="小前端，on my way~">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  <title>
+    
+      面试拾疑 | 鸦杀&#39;s Blog
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  <script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <!--<div class="logo"></div>-->
+      <span>鸦杀's Blog</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>面试拾疑</h2>
+  <p class="post-date">2016-07-21</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><p>第一次遇到电面，┭┮﹏┭┮好丢脸。。然后我竟然还过了。。。</p>
+<h3 id="行内元素有没有盒模型"><a href="#行内元素有没有盒模型" class="headerlink" title="行内元素有没有盒模型"></a>行内元素有没有盒模型</h3><p>任何元素都有啊，我傻。。。</p>
+<h3 id="行内元素与块元素的区别"><a href="#行内元素与块元素的区别" class="headerlink" title="行内元素与块元素的区别"></a>行内元素与块元素的区别</h3><p>首先是在布局上，块元素独占一行。相邻行内元素水平排列<br>宽度块元素默认100%，行内元素随内容自适应<br>块元素设置margin四个方向有效，行内元素margin垂直方向无效。<br>块元素可以容纳行内元素和块元素，但行内元素只能容纳行内元素。<br>行内元素一般来讲设置高宽无效。但替换元素Replace inline element除外（<code>&lt;img&gt;、&lt;input&gt;、&lt;textarea&gt;、&lt;/textarea&gt;&lt;select&gt;、&lt;object&gt;</code>） ,它们需要元素的属性和标签来显示元素。<br>从可继承的css属性上看，并不是所有块元素能继承的属性行内元素都能继承，除了列表、表格相关外，text-indent与text-align属性对行内元素无效。</p>
+<p>input元素为什么可以设置高宽的问题，这个之前确实没有研究过，其他的几点想想是可以答出来的。</p>
+<h3 id="垂直布局"><a href="#垂直布局" class="headerlink" title="垂直布局"></a>垂直布局</h3><p>这个很久以前其实自己总结过啊。。太久没写。。。回顾一下水平垂直居中布局~</p>
+<p>####、绝对定位+负边距</p>
+<p>父元素：position:relative,<br>子元素：position:absolute,margin负边距为高宽的一半<br>兼容性很好，需要已知子元素的宽高</p>
+<iframe style="width: 100%; height: 300px" src="http://sandbox.runjs.cn/show/xtmzxpfa" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;wrap&quot;&gt;  </span><br><span class="line"> &lt;div class=&quot;content&quot;&gt;  </span><br><span class="line"> content  </span><br><span class="line"> div&gt;  </span><br><span class="line">div&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">.wrap&#123;  </span><br><span class="line">position:relative;  </span><br><span class="line"> background-color:#edd;  </span><br><span class="line"> width:100%;  </span><br><span class="line"> height:100%;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line">.content&#123;  </span><br><span class="line"> position:absolute;  </span><br><span class="line"> left:50%;  </span><br><span class="line"> top:50%;   </span><br><span class="line"> margin-top:-50px;  </span><br><span class="line"> margin-left:-50px;  </span><br><span class="line"> width:100px;  </span><br><span class="line"> height:100px;  </span><br><span class="line"> background-color:#f00;  </span><br><span class="line"> color:#fff;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="用绝对定位结合margin偏移来做"><a href="#用绝对定位结合margin偏移来做" class="headerlink" title="用绝对定位结合margin偏移来做"></a>用绝对定位结合margin偏移来做</h4><p>父元素：position:relative,<br>子元素：position:absolute;top:0;right:0;bottom:0;left:0;同时还需设置margin为auto。</p>
+<p>同样需要知道子元素的高宽，但是它对IE6/7是不支持的</p>
+<iframe style="width: 100%; height: 300px" src="http://sandbox.runjs.cn/show/ncovgtgm" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;wrap&quot;&gt;  </span><br><span class="line"> &lt;div class=&quot;content&quot;&gt;  </span><br><span class="line"> content  </span><br><span class="line"> div&gt;  </span><br><span class="line">div&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">.wrap&#123;  </span><br><span class="line"> position:relative;  </span><br><span class="line"> width:100%;  </span><br><span class="line"> height:100%;  </span><br><span class="line"> background-color:#edd;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line">.content&#123;  </span><br><span class="line"> position:absolute;  </span><br><span class="line"> left:0;  </span><br><span class="line"> top:0;  </span><br><span class="line"> right:0;  </span><br><span class="line"> bottom:0;  </span><br><span class="line"> width:100px;  </span><br><span class="line"> height:100px;  </span><br><span class="line"> margin:auto;  </span><br><span class="line"> background-color:#f00;  </span><br><span class="line"> color:#fff;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="绝对定位-translate"><a href="#绝对定位-translate" class="headerlink" title="绝对定位-translate"></a>绝对定位-translate</h4><p>很大的优点是它不需要知道宽高，但ie6/7/8不支持</p>
+<iframe style="width: 100%; height: 300px" src="http://sandbox.runjs.cn/show/mrcjh0ij" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;wrap&quot;&gt;  </span><br><span class="line"> &lt;div class=&quot;content&quot;&gt;  </span><br><span class="line"> content  </span><br><span class="line"> div&gt;  </span><br><span class="line">div&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">.wrap&#123;  </span><br><span class="line">position:relative;  </span><br><span class="line"> background-color:#edd;  </span><br><span class="line"> width:100%;  </span><br><span class="line"> height:100%;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line">.content&#123;  </span><br><span class="line">position:absolute;  </span><br><span class="line"> left:50%;  </span><br><span class="line"> top:50%;  </span><br><span class="line"> transform:translate(-50%,-50%);  </span><br><span class="line"> background-color:#f00;  </span><br><span class="line"> color:#fff;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="弹性盒"><a href="#弹性盒" class="headerlink" title="弹性盒"></a>弹性盒</h4><p>我觉得在移动端浏览器兼容性需要好好测一下，写法上需要关注新旧版本的flex。比如UC/QQ/微信，据之前同事反应有很多坑点，且最好用li。<br>IE6/7/8/9不支持</p>
+<p>这个从来没记住过，刚刚翻《图解css3核心技术与案例实战》，发现display:box的写法是早期的版本，09年；而flexbox是11年的过滤版本，flex才是当前标准规范。</p>
+<iframe style="width: 100%; height: 300px" src="http://sandbox.runjs.cn/show/rpgcnkhs" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;iframe style=&quot;width: 100%; height: 300px&quot; src=&quot;http://sandbox.runjs.cn/show/rpgcnkhs&quot; allowfullscreen=&quot;allowfullscreen&quot; frameborder=&quot;0&quot;&gt;iframe&gt;</span><br></pre></td></tr></table></figure>
+<p>这里junstify-content用于控制主轴居中，align-items控制侧轴居中。默认元素水平排列的，主轴就是水平方向，侧轴就是垂直方向。所以如果设置了flex-direction:column的话，水平居中就得用align-items，垂直居中用junstify-content。</p>
+<p>在早期版本中，主轴对齐对box-pack,侧轴对齐用box-align<br>在混合版本中，主轴对齐用flex-pack,侧轴对齐用flex-align,</p>
+<p>三个版本的浏览器兼容性问题：</p>
+<ul>
+<li>早期：ie不支持，firefox:2-21，chrome:4-20,opera不支持，safari3.1-6，ios safari3.2-6.1,安卓浏览器2.1-4.3，安卓uc浏览器9.9+</li>
+<li>混合版本：只有ie10支持</li>
+<li>标准版本：ie11+，firefox22+,chrome:21+,opera:12.1+，safari从6.1开始，ios safari7.1+,安卓浏览器4.4+，安卓chrome浏览器51+，安卓firefox浏览器46+，opera手机浏览器12.1+。</li>
+</ul>
+<p>can i use 中有详细介绍，<a href="http://caniuse.com/#search=flex" target="_blank" rel="noopener">http://caniuse.com/#search=flex</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">.wrap&#123;  </span><br><span class="line"> display: -webkit-box;  </span><br><span class="line"> display: -moz-box;  </span><br><span class="line"> display: -ms-flexbox;  </span><br><span class="line"> display: -webkit-flex;  </span><br><span class="line"> display: flex;  </span><br><span class="line"> -webkit-box-align: center;  </span><br><span class="line"> -moz-box-align: center;  </span><br><span class="line"> -ms-flex-align: center;  </span><br><span class="line"> -webkit-align-items: center;  </span><br><span class="line"> align-items: center;  </span><br><span class="line"> -webkit-box-pack: center;  </span><br><span class="line"> -moz-box-pack: center;  </span><br><span class="line"> -ms-flex-pack: center;  </span><br><span class="line"> -webkit-justify-content: center;  </span><br><span class="line"> justify-content: center;  </span><br><span class="line"> height: 200px;  </span><br><span class="line"> width: 200px;  </span><br><span class="line"> background-color: #ccc;  </span><br><span class="line">  </span><br><span class="line">&#125;  </span><br><span class="line">.content&#123;  </span><br><span class="line">background-color: #edd;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="table-cell"><a href="#table-cell" class="headerlink" title="table-cell"></a>table-cell</h4><iframe style="width: 100%; height: 300px" src="http://sandbox.runjs.cn/show/4znghh2u" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;wrap&quot;&gt;  </span><br><span class="line"> &lt;div class=&quot;content&quot;&gt;  </span><br><span class="line"> content  </span><br><span class="line"> div&gt;  </span><br><span class="line">div&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">.wrap&#123;  </span><br><span class="line"> width: 200px;  </span><br><span class="line"> height: 200px;  </span><br><span class="line"> display: table;  </span><br><span class="line"> background-color: #ccc;  </span><br><span class="line">  </span><br><span class="line">&#125;  </span><br><span class="line">.content&#123;  </span><br><span class="line"> display:table-cell;  </span><br><span class="line"> vertical-align:middle;  </span><br><span class="line">background-color: #edd;  </span><br><span class="line"> text-align:center;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="行内元素使用vertical-align-text-align"><a href="#行内元素使用vertical-align-text-align" class="headerlink" title="行内元素使用vertical-align-text-align"></a>行内元素使用vertical-align-text-align</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;wrap&quot;&gt;  </span><br><span class="line"> &lt;div class=&quot;content&quot;&gt;  </span><br><span class="line"> content  </span><br><span class="line"> div&gt;  </span><br><span class="line">div&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">.wrap&#123;  </span><br><span class="line"> width: 200px;  </span><br><span class="line"> height: 200px;  </span><br><span class="line"> display: block;  </span><br><span class="line"> background-color: #ccc;  </span><br><span class="line"> text-align:center;  </span><br><span class="line">  </span><br><span class="line">&#125;  </span><br><span class="line">.content&#123;  </span><br><span class="line"> display:inline;  </span><br><span class="line"> vertical-align:center;  </span><br><span class="line"> line-height:200px;  </span><br><span class="line">    </span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="补充一个未知宽度水平居中利用position-relative与left-right"><a href="#补充一个未知宽度水平居中利用position-relative与left-right" class="headerlink" title="补充一个未知宽度水平居中利用position-relative与left-right"></a>补充一个未知宽度水平居中利用position-relative与left-right</h4><p>原理就是父元素相对定位，left:50%;它所有的子元素设为行内或者行内块元素，相对定位，也相对自身right:50%。因为子元素的right 50%是根据父容器的宽度来算的。因此刚好，矫正了子元素的位置。</p>
+<p>这里子元素不一定非要设成float:left，display值inline,inline-block也可以，当然如果子元素设置了宽度的话，需要text-align:center;修正一下。父元素也不一定需要设为float，可以改成inline-block;</p>
+<p>兼容性还行，就是里面子元素宽度的1.5倍不能大于这个布局的容器的宽度，不然会有横向滚动条。</p>
+<iframe style="width: 100%; height: 300px" src="http://sandbox.runjs.cn/show/lqmpt91z" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul class=&quot;wp&quot;&gt;  </span><br><span class="line"> &lt;li class=&quot;test&quot;&gt;1li&gt;  </span><br><span class="line"> &lt;li class=&quot;test&quot;&gt;2li&gt;  </span><br><span class="line"> &lt;li class=&quot;test&quot;&gt;3li&gt;  </span><br><span class="line"> &lt;li class=&quot;test&quot;&gt;4li&gt;  </span><br><span class="line"> &lt;li class=&quot;test&quot;&gt;5li&gt;  </span><br><span class="line">  </span><br><span class="line">ul&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ul,li&#123;margin:0;padding:0;&#125;  </span><br><span class="line">.wp &#123;position:relative; left:50%; display:inline-block;background:#eee;&#125;  </span><br><span class="line">.test &#123;position:relative; right:50%; z-index:2; display:inline-block;width:50px;text-align:center;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="数组排序"><a href="#数组排序" class="headerlink" title="数组排序"></a>数组排序</h3><p>当时在犹豫到底是升级为-1还是降序为-1.。。还有我发现我表达能力很有问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Array.prototype.desort=function()&#123;  </span><br><span class="line"> return this.sort(function(a,b)&#123;  </span><br><span class="line"> return a&gt;=b?-1:1  </span><br><span class="line"> &#125;)  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>数组排序之前有一个需求做过的比较折腾的是尺码表排序，混杂了数字、英文、混合、2xs-6xl、xxs-xxxxxxl = =。</p>
+<h3 id="blur是否有relatedTarget"><a href="#blur是否有relatedTarget" class="headerlink" title="blur是否有relatedTarget"></a>blur是否有relatedTarget</h3><p>这个我答的是没有。印象中只记得mouseover和mouseout有。后来查了一下确实是没有的。</p>
+<h3 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h3><p>跨域答了几个，jsonp,img,document.cookie,postMessage和xhr2的。<br>其实我还记得反向代理，虽然不知道是什么鬼。xhr2重点是后端需要设置返回头。不过我把这些单词都忘光了。<br>如果要传cookie的话，服务端要设置Access-Control-Allow-Origin,但是值不能为*，还有Access-Control-Allow-Credentials:true,记得之前和后端同学联调时遇到过这个问题。前端需要设置xhr2的属性xhrFields: {withCredentials: true }</p>
+<p>document.domain跨域，被问跨域跨的是数据还是页面，然后我又傻的，如果是页面，iframe还能访问么。以后应该三思。。答案引用一句话：</p>
+<p><code>浏览器都有一个同源策略，其限制之一就是不能通过ajax的方法去请求不同源中的文档。 它的第二个限制是浏览器中不同域的框架之间是不能进行js的交互操作的。</code></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这次面得很差，有很多不该答错的点。&amp;我现在困死了。。。然后明天有整理下跨域，我记得还有flash跨域？？</p>
+<p></p>
+</section>
+    <!-- Tags START -->
+    
+    <!-- Tags END -->
+    <!-- NAV START -->
+    
+  <div class="nav-container">
+    <!-- reverse left and right to put prev and next in a more logic postition -->
+    
+      <a class="nav-left" href="/2016/07/20/07-20-读zepto源码（4）form/">
+        <span class="nav-arrow">← </span>
+        
+          读zepto源码 (4) form
+        
+      </a>
+    
+    
+      <a class="nav-right" href="/2016/07/22/07-22-跨域整理/">
+        
+          跨域整理
+        
+        <span class="nav-arrow"> →</span>
+      </a>
+    
+  </div>
+
+    <!-- NAV END -->
+    <!-- 打赏 START -->
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    
+      <div class="qrcode">
+        <canvas id="share-qrcode"></canvas>
+        <p class="notice">扫描二维码，分享此文章</p>
+      </div>
+    
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'https://juzhishang.github.io/2016/07/21/07-21-面试拾疑/';
+    var banner = ''
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "juzhishang";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "面试拾疑",
+        owner: "juzhishang",
+        repo: "juzhishang.github.io",
+        oauth: {
+          client_id: "19a4bb92d652487fe51f",
+          client_secret: "1758eabb0def22e0a6b8edab473245799754c012"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2019 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="/js/script.js"></script>
+  </body>
+</html>

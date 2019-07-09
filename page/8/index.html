@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="小前端，on my way~">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  <title>
+    
+      鸦杀&#39;s Blog
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  <script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+  
+  
+    <!-- MathJax support START -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <!-- MathJax support END -->
+  
+
+
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <!--<div class="logo"></div>-->
+      <span>鸦杀's Blog</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link active">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link mobile-active">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <main class="app-body">
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2015/12/09/四则运算-calc/">四则运算 calc()</a>
+      </h2>
+      <p class="article-date">December 9, 2015</p>
+      
+        
+  <a href="/tages#css" >
+    <span class="tag-code">css</span>
+  </a>
+
+  <a href="/tages#css3" >
+    <span class="tag-code">css3</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          它的出现还真的蛮令人惊喜的，很适用于百分比宽度。之前我们有box-sizng，而今又多了一个它，并且，calc的实用性更高。我们可以在border、margin、pading、font-size和width等属性上做一些加减乘除，简单拿width举例：1234567.wrap &#123;b ...
+        
+      </div>
+      <a class="more" href="/2015/12/09/四则运算-calc/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2015/12/09/关于Function-prototype-apply-call的一些补充/">关于Function.prototype.apply.call的一些补充</a>
+      </h2>
+      <p class="article-date">December 9, 2015</p>
+      
+        
+  <a href="/tages#apply" >
+    <span class="tag-code">apply</span>
+  </a>
+
+  <a href="/tages#call" >
+    <span class="tag-code">call</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          宿主对象，在javascript中有三类对象，本地对象，内置对象和宿主对象。其他两类暂且不提，宿主对象是指什么呢（DOM BOM），控制台对象是文档对象模型的扩展，也被认为是宿主对象。那么，它们有什么缺陷呢？在IE9之前，宿主对象不是继承自Object，它们的方法也不继承自Function， ...
+        
+      </div>
+      <a class="more" href="/2015/12/09/关于Function-prototype-apply-call的一些补充/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2015/12/09/remote-error-You-can-t-push-to-git-解决办法/">remote error: You can't push to git 解决办法</a>
+      </h2>
+      <p class="article-date">December 9, 2015</p>
+      
+        
+  <a href="/tages#git" >
+    <span class="tag-code">git</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          
+
+
+
+        
+      </div>
+      <a class="more" href="/2015/12/09/remote-error-You-can-t-push-to-git-解决办法/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2015/12/09/sublime快捷键/">sublime快捷键</a>
+      </h2>
+      <p class="article-date">December 9, 2015</p>
+      
+        
+  <a href="/tages#编辑器" >
+    <span class="tag-code">编辑器</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          1、同时选择多个相同的字符串
+ctrl+D 
+2、跳转到指定行数
+ctrl+G（或者ctrl+P，输入冒号）
+3、合并多行为单行
+ctrl+J
+4、光标移动到小括号开始或结束
+ctrl+M
+5、交互光标左右两个字符的位置
+ctrl+T
+6、查找对象或函数或css选择器或html的id属性ct ...
+        
+      </div>
+      <a class="more" href="/2015/12/09/sublime快捷键/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2015/12/09/Nodejs-连接-mysql时报错-Error-Cannot-enqueue-Query-after-fatal-error/">Nodejs 连接 mysql时报错 Error: Cannot enqueue Query after fatal error</a>
+      </h2>
+      <p class="article-date">December 9, 2015</p>
+      
+        
+  <a href="/tages#node" >
+    <span class="tag-code">node</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          报错如下：123456Error during request (500): Error: Cannot enqueue Query after fatal error.at Protocol._validateEnqueue (MY_CODE\node_modules\express-my ...
+        
+      </div>
+      <a class="more" href="/2015/12/09/Nodejs-连接-mysql时报错-Error-Cannot-enqueue-Query-after-fatal-error/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2015/11/24/web全栈工程师的自我修养/">web全栈工程师的自我修养</a>
+      </h2>
+      <p class="article-date">November 24, 2015</p>
+      
+        
+  <a href="/tages#读书笔记" >
+    <span class="tag-code">读书笔记</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          从标题就不难看出，这不是一本技术型的书籍。它涉及的内容很杂，大部分篇幅是关于个人的成长，当然也有一些技术类的文章，比如http与缓存。从网上的评论看，好坏参半，对我而言，算是一本值得买的书吧。
+思考野生程序员：非计算机专业背景的开发者大概会比较容易陷入到这样一种尴尬的境地，各方面都涉及一点， ...
+        
+      </div>
+      <a class="more" href="/2015/11/24/web全栈工程师的自我修养/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2015/11/23/译-Understanding-ECMAScript6-函数/">[译]Understanding ECMAScript6 函数</a>
+      </h2>
+      <p class="article-date">November 23, 2015</p>
+      
+      <div class="article-summary">
+        
+          函数函数是任何编程语言的重要组成部分，而自从JavaScript被引入以来，JavaScript的函数就未有太多改变。遗留下来的积压问题及微妙行为使我们很容易犯错误，或者需要更多的代码来实现一个非常常见的行为。
+ECMAScript6的函数是一个巨大的进步，它考虑了javascript开发者 ...
+        
+      </div>
+      <a class="more" href="/2015/11/23/译-Understanding-ECMAScript6-函数/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2015/11/23/译-Understanding-ECMAScript6-基本知识/">[译]Understanding ECMAScript6 基本知识</a>
+      </h2>
+      <p class="article-date">November 23, 2015</p>
+      
+        
+  <a href="/tages#Understanding ECMAScript 6" >
+    <span class="tag-code">Understanding ECMAScript 6</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          基本知识ECMAScript 6在ECMAScript 5之上做了大量的改变。一些改变很大，比如添加新的类型或者语法，而其它的非常小，提供了语言之上的渐进改进。这个章节包含了那些渐进改进，它们可能不会获得很多关注但提供了一些重要的功能，使得某些类型的问题更容易解决。
+更好的Unicode支持 ...
+        
+      </div>
+      <a class="more" href="/2015/11/23/译-Understanding-ECMAScript6-基本知识/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2015/11/23/译-Understanding-ECMAScript-6-内容目录/">[译]Understanding ECMAScript 6 内容目录</a>
+      </h2>
+      <p class="article-date">November 23, 2015</p>
+      
+        
+  <a href="/tages#Understanding ECMAScript 6" >
+    <span class="tag-code">Understanding ECMAScript 6</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          
+说明
+浏览器与Node.js兼容
+这本书是写给谁的
+概述
+帮助与支持
+
+
+基本知识
+更好的Unicode支持
+其他字符串变化
+其他正则表达式变化
+Object.is()
+块绑定
+解构赋值
+数字
+总结
+
+
+函数
+默认参数
+剩余参数
+解构参数
+展开运算符
+name属性
+块级方法
+箭头函数
+语法 ...
+        
+      </div>
+      <a class="more" href="/2015/11/23/译-Understanding-ECMAScript-6-内容目录/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2015/11/23/译-Understanding-ECMAScript-6-说明/">[译]Understanding ECMAScript 6 说明</a>
+      </h2>
+      <p class="article-date">November 23, 2015</p>
+      
+        
+  <a href="/tages#Understanding ECMAScript 6" >
+    <span class="tag-code">Understanding ECMAScript 6</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          说明JavaScript核心语言功能定义在ECMA-262中，此标准定义的语言是ECMAScript，浏览器中的JavaScript和Node.js环境是它的超级。当浏览器与Node.js想要通过额外对象和方法增加更多的功能，其语言核心仍是在ECMAScript中定义的，这就是ECMA-26 ...
+        
+      </div>
+      <a class="more" href="/2015/11/23/译-Understanding-ECMAScript-6-说明/">Read more</a>
+    </article>
+  
+
+  
+    <div class="guide-pager">
+  
+    <a href="/page/7/"><span class="page-arrow">← </span>Prev</a>
+  
+  
+    <a class="unvisible" href="/">Next <span class="page-arrow">→</span></a>
+  
+</div>
+  
+</main>
+
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2019 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'true';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="/js/script.js"></script>
+  </body>
+</html>
