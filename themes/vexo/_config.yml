@@ -1,0 +1,59 @@
+author: yanm1ng # 作者
+description: yanm1ng's blog
+keyword: hexo-theme, vuejs
+favicon: 
+
+excerpt_link: Read more
+
+menu:
+ Home: /
+ Tags: /tags/
+ Archives: /archives/
+ #Projects: /project/
+ About: /about/
+
+# highlight
+highlight:
+  tomorrow
+
+# catalog
+catalog: false
+
+# donate
+donate: false
+
+# qrcode
+qrcode: true
+
+# comment
+# you can set gitment or uyan
+
+comment: gitment
+
+# gitment config
+gitment_owner: juzhishang
+gitment_repo: juzhishang.github.io
+gitment_oauth_id: 19a4bb92d652487fe51f
+gitment_oauth_secret: 1758eabb0def22e0a6b8edab473245799754c012
+
+# uyan
+# if you want to use uyan as your blog comment, plz remove/comment out gitment config
+
+baidu_id: 
+
+
+about:
+  #banner: http://file.muyutech.com/about.jpg
+  avatar: http://ww3.sinaimg.cn/square/66474ec2gw1f3s53d3ltzj2050050glk.jpg
+  description: "小前端，on my way~"
+  weibo_username: 1715949250
+  #twitter_username: yanm1ng
+  github_username: juzhishang
+  #zhihu_username: yummy1121
+  douban_username: juzhishang
+
+# MathJax Support
+mathjax:
+  enable: true
+  per_page: false
+  cdn: //cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML
