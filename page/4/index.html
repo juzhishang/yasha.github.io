@@ -126,6 +126,35 @@
   
     <article class="article-card">
       <h2 class="article-head">
+        <a href="/2016/07/19/07-19-读zepto源码（3）ajax/">读zepto源码（3) ajax</a>
+      </h2>
+      <p class="article-date">July 19, 2016</p>
+      
+        
+  <a href="/tages#zepto" >
+    <span class="tag-code">zepto</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          ajax模块我觉得它的实现可以分为以下三个部分：
+一、ajax自定义全局方法，包括：
+ajaxStart
+ajaxStop
+ajaxBeforeSend
+ajaxSuccess
+ajaxError
+ajaxComplete
+
+从方法名称就可以看出，是与处理ajax回调相关的。不过这些方法不能 ...
+        
+      </div>
+      <a class="more" href="/2016/07/19/07-19-读zepto源码（3）ajax/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
         <a href="/2016/07/15/07-15-鼠标移动事件/">鼠标移动事件</a>
       </h2>
       <p class="article-date">July 15, 2016</p>
@@ -143,27 +172,6 @@
         
       </div>
       <a class="more" href="/2016/07/15/07-15-鼠标移动事件/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/2016/07/14/07-14-event-relatedTarget/">event-relatedTarget</a>
-      </h2>
-      <p class="article-date">July 14, 2016</p>
-      
-        
-  <a href="/tages#事件" >
-    <span class="tag-code">事件</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          来看下event对象的relatedTarget，它与mouseover、mouseout事件有关。
-它的字面意思为相关目标，对mouseover事件而言，事件的主目标是获得光标的元素，而相关目标就是那个失去光标的元素。类似地，对mouseout事件而言，事件的主目标是失去光标的元素，而相关 ...
-        
-      </div>
-      <a class="more" href="/2016/07/14/07-14-event-relatedTarget/">Read more</a>
     </article>
   
     <article class="article-card">
@@ -211,6 +219,27 @@ Zepto源码分析-event模块
         
       </div>
       <a class="more" href="/2016/07/14/07-14-读zepto源码（2）event/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
+        <a href="/2016/07/14/07-14-event-relatedTarget/">event-relatedTarget</a>
+      </h2>
+      <p class="article-date">July 14, 2016</p>
+      
+        
+  <a href="/tages#事件" >
+    <span class="tag-code">事件</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          来看下event对象的relatedTarget，它与mouseover、mouseout事件有关。
+它的字面意思为相关目标，对mouseover事件而言，事件的主目标是获得光标的元素，而相关目标就是那个失去光标的元素。类似地，对mouseout事件而言，事件的主目标是失去光标的元素，而相关 ...
+        
+      </div>
+      <a class="more" href="/2016/07/14/07-14-event-relatedTarget/">Read more</a>
     </article>
   
     <article class="article-card">
@@ -316,37 +345,6 @@ Zepto源码分析-event模块
         
       </div>
       <a class="more" href="/2016/07/10/07-10-去掉可点击元素的半透明背景/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/2016/07/06/07-06-比较zepto与jquery的区别/">比较zepto与jquery的区别</a>
-      </h2>
-      <p class="article-date">July 6, 2016</p>
-      
-        
-  <a href="/tages#zepto" >
-    <span class="tag-code">zepto</span>
-  </a>
-
-  <a href="/tages#jquery" >
-    <span class="tag-code">jquery</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          
-1、zepto的$.each与$().each()
-
-这两个方法不是同一个东西，$.each我们可以使用return false中断遍历，而$().each由于内部调用的是数组的every方法，即便return false还是会全部执行完。
-
-2、zepto data 没有缓存
-
-以前使用 ...
-        
-      </div>
-      <a class="more" href="/2016/07/06/07-06-比较zepto与jquery的区别/">Read more</a>
     </article>
   
 
