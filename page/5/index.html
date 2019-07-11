@@ -180,27 +180,20 @@
   
     <article class="article-card">
       <h2 class="article-head">
-        <a href="/2016/06/24/06-24-IE678如何区分/">ie678如何区分</a>
+        <a href="/2016/06/24/06-24-如何检测真对象/">如何检测真对象</a>
       </h2>
       <p class="article-date">June 24, 2016</p>
       
-        
-  <a href="/tages#ie" >
-    <span class="tag-code">ie</span>
-  </a>
-
-  <a href="/tages#浏览器兼容性" >
-    <span class="tag-code">浏览器兼容性</span>
-  </a>
-
-      
       <div class="article-summary">
         
-          1、useragent检测,判断trim_Version的值,我的测试结果分别是MSIE6.0，MSIE7.0，MSIE8.0。
-12345678var browser=navigator.appName,   b_version=navigator.appVersion,   versio ...
+          
+BeiBei
+
+比较容易遗漏的点：1、类数组（arguments,nodeList,HTMLCollection） 2、日期和正则其实这里还遗漏了元素的属性集合NamedNodeMap,它也是类数组。  
+123456789101112131415161718   &#123;   isP ...
         
       </div>
-      <a class="more" href="/2016/06/24/06-24-IE678如何区分/">Read more</a>
+      <a class="more" href="/2016/06/24/06-24-如何检测真对象/">Read more</a>
     </article>
   
     <article class="article-card">
@@ -226,20 +219,27 @@ HTTP协议中POST、GET、HEAD、PUT等请求方法以及一些常见错误
   
     <article class="article-card">
       <h2 class="article-head">
-        <a href="/2016/06/24/06-24-如何检测真对象/">如何检测真对象</a>
+        <a href="/2016/06/24/06-24-IE678如何区分/">ie678如何区分</a>
       </h2>
       <p class="article-date">June 24, 2016</p>
       
+        
+  <a href="/tages#ie" >
+    <span class="tag-code">ie</span>
+  </a>
+
+  <a href="/tages#浏览器兼容性" >
+    <span class="tag-code">浏览器兼容性</span>
+  </a>
+
+      
       <div class="article-summary">
         
-          
-BeiBei
-
-比较容易遗漏的点：1、类数组（arguments,nodeList,HTMLCollection） 2、日期和正则其实这里还遗漏了元素的属性集合NamedNodeMap,它也是类数组。  
-123456789101112131415161718   &#123;   isP ...
+          1、useragent检测,判断trim_Version的值,我的测试结果分别是MSIE6.0，MSIE7.0，MSIE8.0。
+12345678var browser=navigator.appName,   b_version=navigator.appVersion,   versio ...
         
       </div>
-      <a class="more" href="/2016/06/24/06-24-如何检测真对象/">Read more</a>
+      <a class="more" href="/2016/06/24/06-24-IE678如何区分/">Read more</a>
     </article>
   
     <article class="article-card">
@@ -286,6 +286,30 @@ BeiBei
   
     <article class="article-card">
       <h2 class="article-head">
+        <a href="/2016/06/19/06-19-css揭秘读书笔记/">css揭秘读书笔记</a>
+      </h2>
+      <p class="article-date">June 19, 2016</p>
+      
+        
+  <a href="/tages#css" >
+    <span class="tag-code">css</span>
+  </a>
+
+  <a href="/tages#读书笔记" >
+    <span class="tag-code">读书笔记</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          昨天看完第一章引言，它讲到了标准的制定过程：(1)编辑草案(ED),(2)首个公开工作草案(FPWD),(3)工作草案(WD),(4)候选推荐规范(CR),(5)提名推荐规范(PR),(6)正式推荐规范(REC),浏览器的支持一般是从工作草案开始的，而到了候选推荐规范这一阶段，就相对稳定了。 ...
+        
+      </div>
+      <a class="more" href="/2016/06/19/06-19-css揭秘读书笔记/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
         <a href="/2016/06/19/06-19-如何唤起app/">如何唤起app</a>
       </h2>
       <p class="article-date">June 19, 2016</p>
@@ -310,51 +334,22 @@ BeiBei
   
     <article class="article-card">
       <h2 class="article-head">
-        <a href="/2016/06/19/06-19-background简写属性/">background简写属性</a>
+        <a href="/2016/06/19/06-19-performance性能打点/">performance性能打点</a>
       </h2>
       <p class="article-date">June 19, 2016</p>
       
         
-  <a href="/tages#css" >
-    <span class="tag-code">css</span>
-  </a>
-
-  <a href="/tages#css3" >
-    <span class="tag-code">css3</span>
+  <a href="/tages#打点" >
+    <span class="tag-code">打点</span>
   </a>
 
       
       <div class="article-summary">
         
-          在我刚开始接触到h5的时候，曾经有同事告诉我，background-size比较特殊，不能放在background中简写。知道我看到css揭秘这本书，2333333
-原来在background简写属性中指定background-size时，需要同时提供一个background-positio ...
+          最近团队在研究性能优化，宝宝说，它在请求时间统计中发现了负值。我们的请求时间是这样计算的：timing.responseStart - timing.requestStart。我说可能是有缓存吧，因为想到了document.readyState。然后也是刚巧找到一篇文章提到了这一bug：ht ...
         
       </div>
-      <a class="more" href="/2016/06/19/06-19-background简写属性/">Read more</a>
-    </article>
-  
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/2016/06/19/06-19-css揭秘读书笔记/">css揭秘读书笔记</a>
-      </h2>
-      <p class="article-date">June 19, 2016</p>
-      
-        
-  <a href="/tages#css" >
-    <span class="tag-code">css</span>
-  </a>
-
-  <a href="/tages#读书笔记" >
-    <span class="tag-code">读书笔记</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          昨天看完第一章引言，它讲到了标准的制定过程：(1)编辑草案(ED),(2)首个公开工作草案(FPWD),(3)工作草案(WD),(4)候选推荐规范(CR),(5)提名推荐规范(PR),(6)正式推荐规范(REC),浏览器的支持一般是从工作草案开始的，而到了候选推荐规范这一阶段，就相对稳定了。 ...
-        
-      </div>
-      <a class="more" href="/2016/06/19/06-19-css揭秘读书笔记/">Read more</a>
+      <a class="more" href="/2016/06/19/06-19-performance性能打点/">Read more</a>
     </article>
   
 
